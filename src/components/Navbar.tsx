@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, MessageSquare, Building, ShieldCheck, ChevronRight, Instagram } from 'lucide-react';
+import { Menu, X, Phone, MessageSquare, Building, ShieldCheck, ChevronRight, Instagram, Sparkles, Bot } from 'lucide-react';
 import { COMPANY_DETAILS } from '../data/properties';
 
 interface NavbarProps {
   onOpenBooking: (propertyName?: string) => void;
   onScrollToSection: (sectionId: string) => void;
+  onOpenAIAdvisor?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onScrollToSection }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onScrollToSection, onOpenAIAdvisor }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -21,6 +22,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onScrollToSection
 
   const navLinks = [
     { name: 'Featured Residences', id: 'featured-properties-section' },
+    { name: 'AI Concierge', id: 'ai-advisor-section' },
     { name: 'About AS Realty', id: 'about-us-section' },
     { name: 'Founder Profile', id: 'founder-section' },
     { name: 'Private Services', id: 'services-section' },
@@ -79,6 +81,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onScrollToSection
 
         {/* Action Group: Instagram, Phone & Schedule Button */}
         <div className="hidden sm:flex items-center gap-3">
+          {onOpenAIAdvisor && (
+            <button
+              id="nav-ai-advisor-btn"
+              onClick={onOpenAIAdvisor}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-gradient-to-r from-[#001730] to-[#002347] border border-[#E6C687]/60 text-[#E6C687] hover:bg-[#C5A059] hover:text-[#002347] text-xs font-semibold shadow-sm transition-all cursor-pointer group"
+              title="Chat with AS Realty Gemini AI Advisor"
+            >
+              <Bot className="w-3.5 h-3.5 text-[#E6C687] group-hover:scale-110 transition-transform" />
+              <span>Ask AI Concierge</span>
+            </button>
+          )}
+
           <a
             id="nav-instagram-button"
             href="https://www.instagram.com/asrealty.official?igsi=MXhteGNhM3Y0YjBmcg=="
@@ -148,6 +162,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onScrollToSection
           </div>
 
           <div className="pt-2 space-y-3">
+            {onOpenAIAdvisor && (
+              <button
+                id="mobile-nav-ai-advisor-btn"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenAIAdvisor();
+                }}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-[#001730] border border-[#E6C687]/60 text-[#E6C687] font-bold text-sm shadow-md"
+              >
+                <Bot className="w-4 h-4 text-[#E6C687]" />
+                <span>Chat with AS Realty AI Concierge</span>
+              </button>
+            )}
+
             <button
               onClick={() => {
                 setMobileMenuOpen(false);

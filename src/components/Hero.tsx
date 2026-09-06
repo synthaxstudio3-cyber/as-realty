@@ -8,6 +8,7 @@ interface HeroProps {
   onFilterChange: (newFilters: Partial<FilterState>) => void;
   onSearchSubmit: () => void;
   onOpenBooking: () => void;
+  onOpenAIAdvisor?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
@@ -15,6 +16,7 @@ export const Hero: React.FC<HeroProps> = ({
   onFilterChange,
   onSearchSubmit,
   onOpenBooking,
+  onOpenAIAdvisor,
 }) => {
   return (
     <section id="hero-section" className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
@@ -70,6 +72,17 @@ export const Hero: React.FC<HeroProps> = ({
             <span>Explore Nagpur Portfolio</span>
             <ArrowRight className="w-4 h-4 text-[#E6C687]" />
           </a>
+
+          {onOpenAIAdvisor && (
+            <button
+              id="hero-ai-advisor-btn"
+              onClick={onOpenAIAdvisor}
+              className="flex items-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-[#001730] to-[#002347] hover:from-[#002347] hover:to-[#001730] border border-[#E6C687]/60 text-[#E6C687] font-semibold text-sm tracking-wider shadow-lg transition-all cursor-pointer group"
+            >
+              <Sparkles className="w-4 h-4 text-[#E6C687] group-hover:rotate-12 transition-transform" />
+              <span>Consult AI Advisor</span>
+            </button>
+          )}
         </div>
 
         {/* Search / Filter Bar Component - Editorial Elevated Card */}

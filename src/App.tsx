@@ -6,11 +6,13 @@ import { Hero } from './components/Hero';
 import { PropertyGrid } from './components/PropertyGrid';
 import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
+import { AIAdvisorSection } from './components/AIAdvisorSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { WhatsAppBookingModal } from './components/WhatsAppBookingModal';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { AIChatAdvisor } from './components/AIChatAdvisor';
 
 export default function App() {
   const [properties] = useState<Property[]>(PROPERTIES);
@@ -23,6 +25,7 @@ export default function App() {
 
   // Modal states
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [isAIAdvisorOpen, setIsAIAdvisorOpen] = useState(false);
   const [selectedBookingPropertyName, setSelectedBookingPropertyName] = useState<string>('');
   const [detailProperty, setDetailProperty] = useState<Property | null>(null);
 
@@ -73,6 +76,7 @@ export default function App() {
       <Navbar
         onOpenBooking={() => handleOpenBooking()}
         onScrollToSection={handleScrollToSection}
+        onOpenAIAdvisor={() => setIsAIAdvisorOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -83,6 +87,7 @@ export default function App() {
           onFilterChange={handleFilterChange}
           onSearchSubmit={handleSearchSubmit}
           onOpenBooking={() => handleOpenBooking()}
+          onOpenAIAdvisor={() => setIsAIAdvisorOpen(true)}
         />
 
         {/* Featured Properties Grid with Interactive Filters */}
@@ -100,6 +105,9 @@ export default function App() {
         {/* Bespoke Client Services & VIP Privileges */}
         <ServicesSection onOpenBooking={() => handleOpenBooking()} />
 
+        {/* Dedicated Gemini AI Advisor Section (Convince about properties, services & trust) */}
+        <AIAdvisorSection onOpenBooking={() => handleOpenBooking()} />
+
         {/* Contact Us & Direct Inquiry Section */}
         <ContactSection onOpenBooking={() => handleOpenBooking()} />
       </main>
@@ -110,10 +118,25 @@ export default function App() {
         onOpenBooking={() => handleOpenBooking()}
       />
 
-      {/* Sticky Bottom-Right WhatsApp Quick Contact Widget */}
-      <FloatingWhatsApp onOpenBooking={() => handleOpenBooking()} />
+      {/* Sticky Bottom-Right WhatsApp & AI Quick Contact Widget */}
+      <FloatingWhatsApp 
+        onOpenBooking={() => handleOpenBooking()} 
+        onOpenAIAdvisor={() => setIsAIAdvisorOpen(true)}
+      />
 
-      {/* Interactive WhatsApp Booking Modal Component (Prompt 2 requirement) */}
+      {/* Floating Gemini AI Concierge Multi-Turn Chatbot */}
+      {isAIAdvisorOpen && (
+        <AIChatAdvisor
+          isOpen={isAIAdvisorOpen}
+          onClose={() => setIsAIAdvisorOpen(false)}
+          onOpenBooking={(propName) => {
+            setIsAIAdvisorOpen(false);
+            handleOpenBooking(propName);
+          }}
+        />
+      )}
+
+      {/* Interactive WhatsApp Booking Modal Component */}
       <WhatsAppBookingModal
         isOpen={isBookingOpen}
         onClose={handleCloseBooking}
