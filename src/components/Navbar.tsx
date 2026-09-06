@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, MessageSquare, Building, ShieldCheck, ChevronRight, Instagram, Sparkles, Bot } from 'lucide-react';
-import { COMPANY_DETAILS } from '../data/properties';
+import { Menu, X, Building, ChevronRight, Instagram, Bot } from 'lucide-react';
 
 interface NavbarProps {
   onOpenBooking: (propertyName?: string) => void;
@@ -105,17 +104,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onScrollToSection
             <span className="hidden md:inline">Follow us</span>
           </a>
 
-          <a
-            href={`https://wa.me/${COMPANY_DETAILS.whatsappNumber}?text=${encodeURIComponent('Hello AS Realty, I am interested in inquiring about your luxury property portfolio.')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#001730] border border-[#C5A059]/40 hover:border-[#C5A059] text-xs font-semibold text-slate-200 transition-all"
-            title="Chat directly on WhatsApp"
-          >
-            <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
-            <span>{COMPANY_DETAILS.phoneDisplay}</span>
-          </a>
-
           <button
             id="nav-contact-us-button"
             onClick={() => onOpenBooking()}
@@ -184,18 +172,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onScrollToSection
               className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-gradient-to-r from-[#C5A059] to-[#E6C687] text-[#002347] font-bold text-sm shadow-md"
             >
               <Building className="w-4 h-4" />
-              <span>Schedule Site Visit (WhatsApp)</span>
+              <span>Schedule Site Visit</span>
             </button>
-
-            <a
-              href={`https://wa.me/${COMPANY_DETAILS.whatsappNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm"
-            >
-              <MessageSquare className="w-4 h-4" />
-              <span>Direct WhatsApp: {COMPANY_DETAILS.phoneDisplay}</span>
-            </a>
 
             <a
               id="mobile-nav-instagram-button"

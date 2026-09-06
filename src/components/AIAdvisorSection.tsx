@@ -111,7 +111,7 @@ export const AIAdvisorSection: React.FC<AIAdvisorSectionProps> = ({ onOpenBookin
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider shadow transition-all"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  <span>Chat on WhatsApp</span>
+                  <span>Direct Consultation</span>
                 </a>
                 <button
                   onClick={() => onOpenBooking()}
