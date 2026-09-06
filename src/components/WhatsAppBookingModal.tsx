@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { X, Calendar, Clock, Building2, User, Send, CheckCircle2, MessageSquare, Copy } from 'lucide-react';
+import { X, Calendar, Clock, Building2, User, Send, CheckCircle2, MessageSquare, Copy, Database } from 'lucide-react';
 import { Property } from '../types';
 import { COMPANY_DETAILS } from '../data/properties';
+import { logLeadToSupabase } from '../lib/supabase';
+import { useAuth } from '../contexts/AuthContext';
 
 interface WhatsAppBookingModalProps {
   isOpen: boolean;
@@ -16,7 +18,8 @@ export const WhatsAppBookingModal: React.FC<WhatsAppBookingModalProps> = ({
   selectedPropertyName,
   properties,
 }) => {
-  const [fullName, setFullName] = useState('');
+  const { user } = useAuth();
+  const [fullName, setFullName] = useState(user?.fullName || '');
   const [propertyName, setPropertyName] = useState(selectedPropertyName || '');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('11:00 AM');
@@ -24,6 +27,13 @@ export const WhatsAppBookingModal: React.FC<WhatsAppBookingModalProps> = ({
   const [useCustomTime, setUseCustomTime] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  // Update fullName if user changes and name not set
+  useEffect(() => {
+    if (user?.fullName && !fullName) {
+      setFullName(user.fullName);
+    }
+  }, [user]);
 
   // Set default date to tomorrow in YYYY-MM-DD
   useEffect(() => {
@@ -86,6 +96,17 @@ export const WhatsAppBookingModal: React.FC<WhatsAppBookingModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName.trim()) return;
+
+    // Log site visit lead to Supabase backend asynchronously
+    logLeadToSupabase({
+      user_id: user?.id || null,
+      name: fullName.trim(),
+      phone: COMPANY_DETAILS.whatsappNumber,
+      email: user?.email,
+      property_name: propertyName,
+      message: whatsappMessage,
+      source: 'WhatsApp Site Visit Booking',
+    });
 
     // Trigger WhatsApp link
     const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');

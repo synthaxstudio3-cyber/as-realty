@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Building, ChevronRight, Instagram, Bot } from 'lucide-react';
+import { Menu, X, Building, ChevronRight, Instagram, Bot, Mic, User, LogOut, ChevronDown } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
 interface NavbarProps {
   onOpenBooking: (propertyName?: string) => void;
   onScrollToSection: (sectionId: string) => void;
   onOpenAIAdvisor?: () => void;
+  onOpenAuth?: (mode?: 'signin' | 'signup') => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onScrollToSection, onOpenAIAdvisor }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  onOpenBooking,
+  onScrollToSection,
+  onOpenAIAdvisor,
+  onOpenAuth,
+}) => {
+  const { user, signOut } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -85,11 +94,67 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onScrollToSection
               id="nav-ai-advisor-btn"
               onClick={onOpenAIAdvisor}
               className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-gradient-to-r from-[#001730] to-[#002347] border border-[#E6C687]/60 text-[#E6C687] hover:bg-[#C5A059] hover:text-[#002347] text-xs font-semibold shadow-sm transition-all cursor-pointer group"
-              title="Chat with AS Realty Gemini AI Advisor"
+              title="Speak with AS Realty AI Voice Advisor in professional Hinglish"
             >
-              <Bot className="w-3.5 h-3.5 text-[#E6C687] group-hover:scale-110 transition-transform" />
-              <span>Ask AI Concierge</span>
+              <Mic className="w-3.5 h-3.5 text-[#E6C687] group-hover:scale-110 transition-transform animate-pulse" />
+              <span>AI Voice Advisor (Hinglish)</span>
             </button>
+          )}
+
+          {/* User Auth Menu or Sign In Button */}
+          {user ? (
+            <div className="relative">
+              <button
+                id="nav-user-profile-btn"
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#001730] border border-[#C5A059]/40 hover:border-[#E6C687] text-xs font-semibold text-slate-200 hover:text-[#E6C687] transition-all cursor-pointer"
+                title={`Account: ${user.fullName || user.email}`}
+              >
+                <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-[#C5A059] to-[#E6C687] text-[#002347] flex items-center justify-center text-[10px] font-bold shrink-0">
+                  {(user.fullName || user.email || 'U').charAt(0).toUpperCase()}
+                </div>
+                <span className="max-w-[85px] truncate">{user.fullName?.split(' ')[0] || 'Account'}</span>
+                <ChevronDown className="w-3 h-3 text-slate-400" />
+              </button>
+
+              {userMenuOpen && (
+                <div
+                  id="nav-user-dropdown"
+                  className="absolute right-0 mt-2 w-52 bg-[#002347] border border-[#C5A059]/40 rounded-xl shadow-2xl p-2 z-50 text-xs animate-fadeIn"
+                >
+                  <div className="px-3 py-2.5 border-b border-white/10">
+                    <p className="font-semibold text-white truncate">{user.fullName || 'VIP Client'}</p>
+                    <p className="text-[10px] text-slate-400 truncate">{user.email}</p>
+                    <div className="mt-1 flex items-center gap-1.5 text-[10px] text-emerald-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      <span>Supabase Synced</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      signOut();
+                      setUserMenuOpen(false);
+                    }}
+                    className="w-full text-left mt-1 px-3 py-2 rounded-lg text-red-300 hover:bg-red-950/40 hover:text-red-200 transition-colors flex items-center gap-2 cursor-pointer font-medium"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            onOpenAuth && (
+              <button
+                id="nav-signin-btn"
+                onClick={() => onOpenAuth('signin')}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#001730] border border-[#C5A059]/40 hover:border-[#E6C687] text-xs font-semibold text-slate-200 hover:text-[#E6C687] transition-all cursor-pointer"
+                title="Sign in or register for personalized AI Voice insights"
+              >
+                <User className="w-3.5 h-3.5 text-[#C5A059]" />
+                <span>Sign In</span>
+              </button>
+            )
           )}
 
           <a
@@ -150,6 +215,44 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onScrollToSection
           </div>
 
           <div className="pt-2 space-y-3">
+            {/* User Profile or Sign In in Mobile Drawer */}
+            {user ? (
+              <div className="p-3 rounded-lg bg-[#001730] border border-[#C5A059]/40 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#C5A059] to-[#E6C687] text-[#002347] flex items-center justify-center text-xs font-bold shrink-0">
+                    {(user.fullName || user.email || 'U').charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-white leading-tight">{user.fullName || 'VIP Client'}</p>
+                    <p className="text-[10px] text-slate-400">{user.email}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    signOut();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="px-2.5 py-1 rounded-md bg-red-950/40 text-red-300 hover:text-white text-[11px] font-medium border border-red-800/40"
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              onOpenAuth && (
+                <button
+                  id="mobile-nav-signin-btn"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenAuth('signin');
+                  }}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#001730] border border-[#C5A059]/50 text-[#E6C687] font-semibold text-xs"
+                >
+                  <User className="w-3.5 h-3.5 text-[#C5A059]" />
+                  <span>Sign In / Client Access</span>
+                </button>
+              )
+            )}
+
             {onOpenAIAdvisor && (
               <button
                 id="mobile-nav-ai-advisor-btn"
@@ -160,7 +263,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onScrollToSection
                 className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-[#001730] border border-[#E6C687]/60 text-[#E6C687] font-bold text-sm shadow-md"
               >
                 <Bot className="w-4 h-4 text-[#E6C687]" />
-                <span>Chat with AS Realty AI Concierge</span>
+                <span>AI Voice &amp; Chat Advisor (Hinglish)</span>
               </button>
             )}
 

@@ -1,6 +1,6 @@
 {
   "name": "AS Realty",
   "description": "High-end luxury real estate website for AS Realty, owned by Amit Shivpeth, exclusively featuring premier Nagpur luxury residences, penthouses, sanctioned plots, farm/field estates, and direct WhatsApp site visit scheduling.",
-  "requestFramePermissions": [],
+  "requestFramePermissions": ["microphone"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

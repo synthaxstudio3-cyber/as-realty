@@ -13,6 +13,7 @@ import { WhatsAppBookingModal } from './components/WhatsAppBookingModal';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { AIChatAdvisor } from './components/AIChatAdvisor';
+import { AuthModal } from './components/AuthModal';
 
 export default function App() {
   const [properties] = useState<Property[]>(PROPERTIES);
@@ -26,8 +27,15 @@ export default function App() {
   // Modal states
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isAIAdvisorOpen, setIsAIAdvisorOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState<'signin' | 'signup'>('signin');
   const [selectedBookingPropertyName, setSelectedBookingPropertyName] = useState<string>('');
   const [detailProperty, setDetailProperty] = useState<Property | null>(null);
+
+  const handleOpenAuth = (mode?: 'signin' | 'signup') => {
+    setAuthModalMode(mode || 'signin');
+    setIsAuthModalOpen(true);
+  };
 
   const handleFilterChange = (newFilters: Partial<FilterState>) => {
     setFilters((prev) => ({ ...prev, ...newFilters }));
@@ -77,6 +85,7 @@ export default function App() {
         onOpenBooking={() => handleOpenBooking()}
         onScrollToSection={handleScrollToSection}
         onOpenAIAdvisor={() => setIsAIAdvisorOpen(true)}
+        onOpenAuth={handleOpenAuth}
       />
 
       {/* Main Content Area */}
@@ -106,7 +115,10 @@ export default function App() {
         <ServicesSection onOpenBooking={() => handleOpenBooking()} />
 
         {/* Dedicated Gemini AI Advisor Section (Convince about properties, services & trust) */}
-        <AIAdvisorSection onOpenBooking={() => handleOpenBooking()} />
+        <AIAdvisorSection 
+          onOpenBooking={() => handleOpenBooking()} 
+          onOpenAuth={handleOpenAuth}
+        />
 
         {/* Contact Us & Direct Inquiry Section */}
         <ContactSection onOpenBooking={() => handleOpenBooking()} />
@@ -124,15 +136,17 @@ export default function App() {
         onOpenAIAdvisor={() => setIsAIAdvisorOpen(true)}
       />
 
-      {/* Floating Gemini AI Concierge Multi-Turn Chatbot */}
+      {/* Floating Gemini AI Concierge Multi-Turn Advisor Modal */}
       {isAIAdvisorOpen && (
         <AIChatAdvisor
           isOpen={isAIAdvisorOpen}
+          initialTab="voice"
           onClose={() => setIsAIAdvisorOpen(false)}
           onOpenBooking={(propName) => {
             setIsAIAdvisorOpen(false);
             handleOpenBooking(propName);
           }}
+          onOpenAuth={handleOpenAuth}
         />
       )}
 
@@ -149,6 +163,13 @@ export default function App() {
         property={detailProperty}
         onClose={handleCloseDetails}
         onBookNow={(prop) => handleOpenBooking(prop)}
+      />
+
+      {/* Supabase Authentication Modal (Login / Sign Up / VIP Guest) */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        initialMode={authModalMode}
       />
     </div>
   );

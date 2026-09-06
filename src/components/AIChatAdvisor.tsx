@@ -16,9 +16,15 @@ import {
   ChevronRight,
   PhoneCall,
   Trees,
-  Compass
+  Compass,
+  Mic,
+  Languages,
+  Database
 } from 'lucide-react';
 import { COMPANY_DETAILS } from '../data/properties';
+import { LiveVoiceAdvisor } from './LiveVoiceAdvisor';
+import { useAuth } from '../contexts/AuthContext';
+import { logVoiceSessionToSupabase } from '../lib/supabase';
 
 export interface ChatMessage {
   id: string;
@@ -32,34 +38,36 @@ interface AIChatAdvisorProps {
   isOpen?: boolean;
   onClose?: () => void;
   onOpenBooking?: (propertyName?: string) => void;
+  onOpenAuth?: (mode?: 'signin' | 'signup') => void;
   isEmbedded?: boolean;
+  initialTab?: 'text' | 'voice';
 }
 
 const SUGGESTED_PROMPTS = [
   {
     icon: Building,
-    label: 'Why invest in Nagpur properties?',
-    prompt: 'Why should I invest in Nagpur properties right now compared to other cities? Convince me of the long-term appreciation and economic growth.',
+    label: 'Nagpur Investment Potential (Hinglish/Eng)',
+    prompt: 'Nagpur mein real estate invest karne ke kya benefits hain? Why is Nagpur property market booming right now compared to tier-1 metros?',
   },
   {
     icon: ShieldCheck,
-    label: 'How do you ensure 100% legal safety & trust?',
-    prompt: 'How does AS Realty verify property titles, 7/12 records, and MahaRERA compliance? Why should I trust Amit Shivpeth and AS Realty?',
-  },
-  {
-    icon: Clock,
-    label: 'Tell me about AS Realty bespoke services',
-    prompt: 'Tell me about all the white-glove services AS Realty provides, including VIP site visits, legal due diligence, and financial advisory.',
+    label: '100% Legal Safety & MahaRERA Trust',
+    prompt: 'AS Realty property verification kaise karta hai? How do you guarantee 100% clear 7/12 land records, MahaRERA compliance, and title safety under Amit Shivpeth?',
   },
   {
     icon: Compass,
-    label: 'Recommend NMRDA sanctioned plots',
-    prompt: 'What are the best NMRDA and RL sanctioned residential plots in Besa, MIHAN, and Hingna? Share prices and approval details.',
+    label: 'NMRDA Sanctioned Plots (Besa & MIHAN)',
+    prompt: 'Besa, MIHAN aur Hingna corridor mein best NMRDA & RL sanctioned plots kaunse hain? Please share current rates and layout approvals.',
+  },
+  {
+    icon: Clock,
+    label: 'AS Realty Bespoke VIP Services',
+    prompt: 'AS Realty kaunsi bespoke services provide karta hai? Tell me about your complimentary VIP chauffeur site visits, 0% brokerage, and legal documentation.',
   },
   {
     icon: Trees,
-    label: 'Tell me about farmlands & field estates',
-    prompt: 'What agricultural farmland and farmhouse fields do you offer near Pench, Katol, or Umred? Are title records verified with 7/12 extracts?',
+    label: 'Farmland & Orange Orchards (Pench/Katol)',
+    prompt: 'Pench, Katol aur Umred corridor mein agricultural farmland aur farmhouse plots ke details aur 7/12 revenue titles ke bare mein batayein.',
   },
 ];
 
@@ -67,20 +75,25 @@ export const AIChatAdvisor: React.FC<AIChatAdvisorProps> = ({
   isOpen = true,
   onClose,
   onOpenBooking,
+  onOpenAuth,
   isEmbedded = false,
+  initialTab = 'voice',
 }) => {
+  const { user } = useAuth();
+  const [activeTab, setActiveTab] = useState<'text' | 'voice'>(initialTab);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'initial-welcome',
       role: 'model',
-      text: `Greetings. I am the **Senior Property Advisor & Concierge at AS Realty**, working under the direction of **Amit Shivpeth**.
+      text: `Namaste & Welcome. Main **AS Realty ka Senior Luxury Property Advisor** hoon, under the direct leadership of founding director **Amit Shivpeth**.
 
-Whether you are evaluating premier penthouses in **Civil Lines**, NMRDA sanctioned plots in **Besa & MIHAN**, or serene **farmland estates in Pench**, I am here to:
-• **Demonstrate the immense value** and capital appreciation of Nagpur's luxury corridors.
-• **Explain our white-glove client services**, from chauffeur-driven site visits to title scrutiny.
-• **Build unshakeable trust** with 100% MahaRERA transparency and verified 7/12 land records.
+Aap mujhse **Hinglish (Hindi + English)** ya English mein consult kar sakte hain. Main aapki guidance ke liye taiyar hoon:
+• **High-ROI Investment in Nagpur**: Samruddhi Mahamarg, MIHAN SEZ aur Metro expansion ke saath capital appreciation insights.
+• **Curated Portfolio**: Luxury penthouses in Civil Lines & Dharampeth, NMRDA sanctioned plots in Besa & MIHAN, aur Pench farmland estates.
+• **100% Legal Title Due Diligence**: 30-year statutory title search, 7/12 & 8A land revenue vetting aur complete MahaRERA compliance.
+• **White-Glove VIP Services**: Private chauffeur site visits, preferred banking, aur 0% brokerage on primary developer inventory.
 
-How may I assist your real estate journey in Nagpur today?`,
+Aap upar **"Live Voice Advisor (Hinglish)"** tab se real-time voice mein bhi directly baat kar sakte hain! Aap aaj kis property ya corridor ke baare mein jaanna chahenge?`,
       timestamp: new Date(),
     },
   ]);
@@ -153,6 +166,16 @@ How may I assist your real estate journey in Nagpur today?`,
           modelUsed: data.modelUsed,
         },
       ]);
+
+      // Log text chat interaction to Supabase asynchronously
+      logVoiceSessionToSupabase({
+        user_id: user?.id || null,
+        user_email: user?.email || null,
+        user_name: user?.fullName || 'Client',
+        query_text: query,
+        response_text: modelReply,
+        voice_engine: 'text-chat',
+      });
     } catch (err) {
       console.error('Error communicating with AI advisor:', err);
       setMessages((prev) => [
@@ -261,36 +284,38 @@ To receive an immediate personalized consultation and schedule a VIP chauffeur s
       }`}
     >
       {/* Header */}
-      <div className="px-4 py-3.5 bg-gradient-to-r from-[#002347] via-[#001730] to-[#002347] text-white flex items-center justify-between border-b border-[#C5A059]/30 shrink-0">
+      <div className="px-4 py-3 bg-gradient-to-r from-[#002347] via-[#001730] to-[#002347] text-white flex items-center justify-between border-b border-[#C5A059]/30 shrink-0">
         <div className="flex items-center gap-2.5">
           <div className="relative">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#002347] to-[#001224] border border-[#C5A059] flex items-center justify-center text-[#E6C687] shadow-inner">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#002347] to-[#001224] border border-[#C5A059] flex items-center justify-center text-[#E6C687] shadow-inner">
               <Bot className="w-5 h-5 text-[#E6C687]" />
             </div>
-            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#002347]" />
+            <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-[#002347]" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
               <h3 className="text-sm font-bold tracking-wide text-white">AS Realty AI Advisor</h3>
-              <span className="px-1.5 py-0.2 text-[10px] uppercase font-bold rounded bg-[#C5A059]/20 text-[#E6C687] border border-[#C5A059]/40">
-                Gemini
+              <span className="px-1.5 py-0.2 text-[9px] uppercase font-bold rounded bg-[#C5A059]/20 text-[#E6C687] border border-[#C5A059]/40">
+                Hinglish + Eng
               </span>
             </div>
-            <p className="text-[11px] text-slate-300 font-medium">
-              Representing <span className="text-[#E6C687]">Amit Shivpeth</span> • 100% Verified
+            <p className="text-[10px] text-slate-300 font-medium">
+              Directed by <span className="text-[#E6C687]">Amit Shivpeth</span> • 100% Verified
             </p>
           </div>
         </div>
 
         {/* Top Controls */}
         <div className="flex items-center gap-1">
-          <button
-            onClick={handleResetChat}
-            title="Reset conversation"
-            className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-          >
-            <RotateCcw className="w-4 h-4" />
-          </button>
+          {activeTab === 'text' && (
+            <button
+              onClick={handleResetChat}
+              title="Reset conversation"
+              className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+            </button>
+          )}
 
           {!isEmbedded && (
             <>
@@ -299,7 +324,7 @@ To receive an immediate personalized consultation and schedule a VIP chauffeur s
                 title={isExpanded ? 'Collapse' : 'Expand'}
                 className="hidden sm:block p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
               >
-                {isExpanded ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+                {isExpanded ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
               </button>
               {onClose && (
                 <button
@@ -307,7 +332,7 @@ To receive an immediate personalized consultation and schedule a VIP chauffeur s
                   title="Close AI Advisor"
                   className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-3.5 h-3.5" />
                 </button>
               )}
             </>
@@ -315,52 +340,98 @@ To receive an immediate personalized consultation and schedule a VIP chauffeur s
         </div>
       </div>
 
-      {/* Model & Trust Selector Bar */}
-      <div className="px-4 py-2 bg-[#F8F9FA] border-b border-slate-200 flex items-center justify-between text-xs text-slate-600 shrink-0">
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Mode:</span>
-          <div className="inline-flex rounded-lg p-0.5 bg-slate-200/80 border border-slate-300">
-            <button
-              onClick={() => setModelSpeed('general')}
-              className={`px-2 py-0.5 rounded text-[11px] font-medium transition-all ${
-                modelSpeed === 'general'
-                  ? 'bg-[#002347] text-[#E6C687] shadow-sm font-semibold'
-                  : 'text-slate-600 hover:text-[#002347]'
-              }`}
-              title="gemini-3.5-flash for balanced property consultation"
-            >
-              General Advisor
-            </button>
-            <button
-              onClick={() => setModelSpeed('complex')}
-              className={`px-2 py-0.5 rounded text-[11px] font-medium transition-all ${
-                modelSpeed === 'complex'
-                  ? 'bg-[#002347] text-[#E6C687] shadow-sm font-semibold'
-                  : 'text-slate-600 hover:text-[#002347]'
-              }`}
-              title="gemini-3.1-pro-preview for complex investment analysis"
-            >
-              Deep Analysis
-            </button>
-            <button
-              onClick={() => setModelSpeed('fast')}
-              className={`px-2 py-0.5 rounded text-[11px] font-medium transition-all ${
-                modelSpeed === 'fast'
-                  ? 'bg-[#002347] text-[#E6C687] shadow-sm font-semibold'
-                  : 'text-slate-600 hover:text-[#002347]'
-              }`}
-              title="gemini-3.1-flash-lite for rapid answers"
-            >
-              Ultra Fast
-            </button>
-          </div>
-        </div>
+      {/* Mode Switcher Tabs (AI Voice Advisor [Default] vs Text Chat) */}
+      <div className="px-3 py-1.5 bg-[#001730] border-b border-[#C5A059]/20 flex items-center justify-between gap-2 shrink-0">
+        <div className="flex items-center gap-1.5 w-full">
+          <button
+            onClick={() => setActiveTab('voice')}
+            className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              activeTab === 'voice'
+                ? 'bg-gradient-to-r from-[#C5A059] to-[#E6C687] text-[#002347] shadow-sm font-bold ring-1 ring-[#FFF5DC]/50'
+                : 'text-slate-300 hover:text-white hover:bg-white/5 border border-transparent'
+            }`}
+          >
+            <Mic className={`w-3.5 h-3.5 ${activeTab === 'voice' ? 'text-[#002347] animate-pulse' : 'text-[#E6C687]'}`} />
+            <span>AI Voice (Default)</span>
+            <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider ${
+              activeTab === 'voice' ? 'bg-[#002347] text-[#E6C687]' : 'bg-[#C5A059]/20 text-[#E6C687]'
+            }`}>
+              Hinglish
+            </span>
+          </button>
 
-        <div className="hidden sm:flex items-center gap-1 text-[11px] text-emerald-700 font-semibold">
-          <ShieldCheck className="w-3.5 h-3.5" />
-          <span>MahaRERA &amp; 7/12 Scrutinized</span>
+          <button
+            onClick={() => setActiveTab('text')}
+            className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              activeTab === 'text'
+                ? 'bg-[#002347] border border-[#C5A059]/50 text-[#E6C687] shadow-sm font-bold'
+                : 'text-slate-300 hover:text-white hover:bg-white/5 border border-transparent'
+            }`}
+          >
+            <MessageSquare className="w-3.5 h-3.5 text-[#E6C687]" />
+            <span>Switch to Text Chat</span>
+          </button>
         </div>
       </div>
+
+      {/* Conditionally Render Voice Room or Chat Room */}
+      {activeTab === 'voice' ? (
+        <div className="flex-1 overflow-y-auto p-3 sm:p-4 bg-[#001224]">
+          <LiveVoiceAdvisor
+            onOpenBooking={onOpenBooking}
+            onSwitchToChat={() => setActiveTab('text')}
+            onOpenAuth={onOpenAuth}
+            isCompact={!isExpanded && !isEmbedded}
+          />
+        </div>
+      ) : (
+        <>
+          {/* Model & Trust Selector Bar */}
+          <div className="px-4 py-2 bg-[#F8F9FA] border-b border-slate-200 flex items-center justify-between text-xs text-slate-600 shrink-0">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Speed:</span>
+              <div className="inline-flex rounded-lg p-0.5 bg-slate-200/80 border border-slate-300">
+                <button
+                  onClick={() => setModelSpeed('general')}
+                  className={`px-2 py-0.5 rounded text-[11px] font-medium transition-all ${
+                    modelSpeed === 'general'
+                      ? 'bg-[#002347] text-[#E6C687] shadow-sm font-semibold'
+                      : 'text-slate-600 hover:text-[#002347]'
+                  }`}
+                  title="gemini-3.5-flash for balanced property consultation"
+                >
+                  General
+                </button>
+                <button
+                  onClick={() => setModelSpeed('complex')}
+                  className={`px-2 py-0.5 rounded text-[11px] font-medium transition-all ${
+                    modelSpeed === 'complex'
+                      ? 'bg-[#002347] text-[#E6C687] shadow-sm font-semibold'
+                      : 'text-slate-600 hover:text-[#002347]'
+                  }`}
+                  title="gemini-3.1-pro-preview for complex investment analysis"
+                >
+                  Deep
+                </button>
+                <button
+                  onClick={() => setModelSpeed('fast')}
+                  className={`px-2 py-0.5 rounded text-[11px] font-medium transition-all ${
+                    modelSpeed === 'fast'
+                      ? 'bg-[#002347] text-[#E6C687] shadow-sm font-semibold'
+                      : 'text-slate-600 hover:text-[#002347]'
+                  }`}
+                  title="gemini-3.1-flash-lite for instant rapid answers"
+                >
+                  Fast
+                </button>
+              </div>
+            </div>
+
+            <div className="hidden sm:flex items-center gap-1 text-[11px] text-emerald-700 font-semibold">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>MahaRERA &amp; 7/12 Scrutinized</span>
+            </div>
+          </div>
 
       {/* Scrollable Message Thread */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/50">
@@ -506,6 +577,8 @@ To receive an immediate personalized consultation and schedule a VIP chauffeur s
           <span className="hidden sm:inline">Send</span>
         </button>
       </form>
+      </>
+      )}
     </div>
   );
 };

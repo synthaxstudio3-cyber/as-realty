@@ -17,9 +17,10 @@ import { COMPANY_DETAILS } from '../data/properties';
 
 interface AIAdvisorSectionProps {
   onOpenBooking: (propertyName?: string) => void;
+  onOpenAuth?: (mode?: 'signin' | 'signup') => void;
 }
 
-export const AIAdvisorSection: React.FC<AIAdvisorSectionProps> = ({ onOpenBooking }) => {
+export const AIAdvisorSection: React.FC<AIAdvisorSectionProps> = ({ onOpenBooking, onOpenAuth }) => {
   return (
     <section id="ai-advisor-section" className="py-20 bg-gradient-to-b from-[#001730] via-[#002347] to-[#001730] text-white relative overflow-hidden">
       {/* Background Decorative Pattern */}
@@ -30,16 +31,17 @@ export const AIAdvisorSection: React.FC<AIAdvisorSectionProps> = ({ onOpenBookin
         <div className="max-w-3xl mx-auto text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C5A059]/20 border border-[#C5A059]/40 text-[#E6C687] text-xs font-bold uppercase tracking-widest mb-4">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>AI Luxury Real Estate Advisor</span>
+            <span>AI Voice Advisor (Default) • Professional Hinglish [Hindi + English]</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif-luxury font-bold text-white tracking-tight leading-tight">
-            Consult the AS Realty <span className="text-[#E6C687]">AI Property Concierge</span>
+            Consult the AS Realty <span className="text-[#E6C687]">AI Property Advisor</span>
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-300 font-light leading-relaxed">
-            Gain immediate clarity on Nagpur’s fastest-growing corridors, discover our white-glove services, 
-            and learn how Amit Shivpeth guarantees 100% legal title safety for your generational investments.
+            Gain immediate clarity in professional <strong className="text-white font-semibold">Hinglish</strong> or English. 
+            Speak in real-time with our senior property advisor using the Gemini Live Voice API to explore Nagpur’s prime corridors, 
+            understand our white-glove services, and verify legal safety under Amit Shivpeth.
           </p>
         </div>
 
@@ -129,13 +131,15 @@ export const AIAdvisorSection: React.FC<AIAdvisorSectionProps> = ({ onOpenBookin
             <div className="rounded-2xl overflow-hidden shadow-2xl border border-[#C5A059]/40 bg-white">
               <AIChatAdvisor 
                 isEmbedded={true}
+                initialTab="voice"
                 onOpenBooking={onOpenBooking}
+                onOpenAuth={onOpenAuth}
               />
             </div>
             <div className="mt-3 flex items-center justify-between px-2 text-[11px] text-slate-400">
               <span className="flex items-center gap-1.5">
                 <Bot className="w-3.5 h-3.5 text-[#E6C687]" />
-                <span>Powered by Gemini 3.5 Flash &amp; 3.1 Pro Preview</span>
+                <span>Powered by Gemini 3.1 Flash Live &amp; Gemini 3.5 Flash • Vercel Ready</span>
               </span>
               <span>Confidential &amp; Verified Real Estate Intelligence</span>
             </div>

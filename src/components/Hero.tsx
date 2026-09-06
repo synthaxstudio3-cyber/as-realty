@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, MapPin, Building, Shield, Award, Calendar, ArrowRight, Sparkles, SlidersHorizontal } from 'lucide-react';
+import { Search, MapPin, Building, Shield, Award, Calendar, ArrowRight, Sparkles, SlidersHorizontal, Mic } from 'lucide-react';
 import { FilterState } from '../types';
 import { COMPANY_DETAILS } from '../data/properties';
 
@@ -79,8 +79,8 @@ export const Hero: React.FC<HeroProps> = ({
               onClick={onOpenAIAdvisor}
               className="flex items-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-[#001730] to-[#002347] hover:from-[#002347] hover:to-[#001730] border border-[#E6C687]/60 text-[#E6C687] font-semibold text-sm tracking-wider shadow-lg transition-all cursor-pointer group"
             >
-              <Sparkles className="w-4 h-4 text-[#E6C687] group-hover:rotate-12 transition-transform" />
-              <span>Consult AI Advisor</span>
+              <Mic className="w-4 h-4 text-[#E6C687] group-hover:scale-110 transition-transform animate-pulse" />
+              <span>AI Voice Advisor (Default)</span>
             </button>
           )}
         </div>
