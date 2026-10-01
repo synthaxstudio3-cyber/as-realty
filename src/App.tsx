@@ -6,14 +6,14 @@ import { Hero } from './components/Hero';
 import { PropertyGrid } from './components/PropertyGrid';
 import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
-import { AIAdvisorSection } from './components/AIAdvisorSection';
+import { DueDiligenceSection } from './components/DueDiligenceSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { WhatsAppBookingModal } from './components/WhatsAppBookingModal';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
-import { AIChatAdvisor } from './components/AIChatAdvisor';
 import { AuthModal } from './components/AuthModal';
+import { SellPropertyModal } from './components/SellPropertyModal';
 
 export default function App() {
   const [properties] = useState<Property[]>(PROPERTIES);
@@ -26,7 +26,7 @@ export default function App() {
 
   // Modal states
   const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [isAIAdvisorOpen, setIsAIAdvisorOpen] = useState(false);
+  const [isSellPropertyOpen, setIsSellPropertyOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'signin' | 'signup'>('signin');
   const [selectedBookingPropertyName, setSelectedBookingPropertyName] = useState<string>('');
@@ -84,8 +84,8 @@ export default function App() {
       <Navbar
         onOpenBooking={() => handleOpenBooking()}
         onScrollToSection={handleScrollToSection}
-        onOpenAIAdvisor={() => setIsAIAdvisorOpen(true)}
         onOpenAuth={handleOpenAuth}
+        onOpenSellProperty={() => setIsSellPropertyOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -96,7 +96,6 @@ export default function App() {
           onFilterChange={handleFilterChange}
           onSearchSubmit={handleSearchSubmit}
           onOpenBooking={() => handleOpenBooking()}
-          onOpenAIAdvisor={() => setIsAIAdvisorOpen(true)}
         />
 
         {/* Featured Properties Grid with Interactive Filters */}
@@ -112,10 +111,13 @@ export default function App() {
         <AboutSection onOpenBooking={() => handleOpenBooking()} />
 
         {/* Bespoke Client Services & VIP Privileges */}
-        <ServicesSection onOpenBooking={() => handleOpenBooking()} />
+        <ServicesSection 
+          onOpenBooking={() => handleOpenBooking()} 
+          onOpenSellProperty={() => setIsSellPropertyOpen(true)}
+        />
 
-        {/* Dedicated Gemini AI Advisor Section (Convince about properties, services & trust) */}
-        <AIAdvisorSection 
+        {/* Institutional-Grade Due Diligence & Investment Advisory */}
+        <DueDiligenceSection 
           onOpenBooking={() => handleOpenBooking()} 
           onOpenAuth={handleOpenAuth}
         />
@@ -128,27 +130,14 @@ export default function App() {
       <Footer
         onScrollToSection={handleScrollToSection}
         onOpenBooking={() => handleOpenBooking()}
+        onOpenSellProperty={() => setIsSellPropertyOpen(true)}
       />
 
-      {/* Sticky Bottom-Right WhatsApp & AI Quick Contact Widget */}
+      {/* Sticky Bottom-Right WhatsApp Quick Contact Widget */}
       <FloatingWhatsApp 
         onOpenBooking={() => handleOpenBooking()} 
-        onOpenAIAdvisor={() => setIsAIAdvisorOpen(true)}
+        onOpenSellProperty={() => setIsSellPropertyOpen(true)}
       />
-
-      {/* Floating Gemini AI Concierge Multi-Turn Advisor Modal */}
-      {isAIAdvisorOpen && (
-        <AIChatAdvisor
-          isOpen={isAIAdvisorOpen}
-          initialTab="voice"
-          onClose={() => setIsAIAdvisorOpen(false)}
-          onOpenBooking={(propName) => {
-            setIsAIAdvisorOpen(false);
-            handleOpenBooking(propName);
-          }}
-          onOpenAuth={handleOpenAuth}
-        />
-      )}
 
       {/* Interactive WhatsApp Booking Modal Component */}
       <WhatsAppBookingModal
@@ -156,6 +145,12 @@ export default function App() {
         onClose={handleCloseBooking}
         selectedPropertyName={selectedBookingPropertyName}
         properties={properties}
+      />
+
+      {/* Sell Your Property Modal (List with Amit Shivpeth) */}
+      <SellPropertyModal
+        isOpen={isSellPropertyOpen}
+        onClose={() => setIsSellPropertyOpen(false)}
       />
 
       {/* Property Deep Dive & Gallery Modal */}

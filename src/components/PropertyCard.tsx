@@ -28,7 +28,17 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   return (
     <div
       id={`property-card-${property.id}`}
-      className="group relative flex flex-col bg-white border border-slate-200 border-b-4 border-b-[#002347] hover:border-b-[#C5A059] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+      onClick={() => onViewDetails(property)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onViewDetails(property);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`View details for ${property.name || property.title} in ${property.location}, Nagpur`}
+      className="group relative flex flex-col bg-white border border-slate-200 border-b-4 border-b-[#002347] hover:border-b-[#C5A059] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059]"
     >
       {/* Property Image Container */}
       <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
@@ -37,6 +47,11 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           alt={property.name || property.title}
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           loading="lazy"
+          referrerPolicy="no-referrer"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80';
+          }}
         />
 
         {/* Gradient Scrim */}
@@ -57,7 +72,11 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
 
         {/* Quick View Button over image */}
         <button
-          onClick={() => onViewDetails(property)}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onViewDetails(property);
+          }}
           className="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg bg-black/60 hover:bg-black/85 text-xs text-white backdrop-blur-md border border-white/20 opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-all flex items-center gap-1.5 focus:outline-none cursor-pointer"
         >
           <Eye className="w-3.5 h-3.5 text-[#E6C687]" />
@@ -75,8 +94,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           </div>
 
           <h3
-            onClick={() => onViewDetails(property)}
-            className="text-xl sm:text-2xl font-serif-luxury font-bold text-[#002347] hover:text-[#C5A059] transition-colors cursor-pointer line-clamp-1"
+            className="text-xl sm:text-2xl font-serif-luxury font-bold text-[#002347] group-hover:text-[#C5A059] transition-colors line-clamp-1"
           >
             {property.name || property.title}
           </h3>
@@ -120,7 +138,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         </div>
 
         {/* Price & Action Row */}
-        <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+        <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <span className="text-[10px] uppercase tracking-widest text-slate-500 block">Starting At</span>
             <span className="text-xl sm:text-2xl font-serif-luxury font-bold text-[#002347]">
@@ -128,14 +146,31 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <button
+              id={`view-details-btn-${property.id}`}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onViewDetails(property);
+              }}
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-[#002347] text-slate-700 hover:text-white border border-slate-200 hover:border-[#002347] font-semibold text-xs transition-colors cursor-pointer"
+            >
+              <Eye className="w-3.5 h-3.5 text-[#B8924B]" />
+              <span>Details</span>
+            </button>
+
             <button
               id={`book-now-button-${property.id}`}
-              onClick={() => onBookNow(property)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#E6C687] hover:from-[#B8924B] hover:to-[#D9B97A] text-[#002347] font-bold text-xs sm:text-sm shadow-md shadow-[#C5A059]/25 transition-all transform active:scale-95 cursor-pointer"
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onBookNow(property);
+              }}
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#E6C687] hover:from-[#B8924B] hover:to-[#D9B97A] text-[#002347] font-bold text-xs shadow-md shadow-[#C5A059]/25 transition-all transform active:scale-95 cursor-pointer"
             >
-              <MessageCircle className="w-4 h-4 fill-[#002347]" />
-              <span>Book Now</span>
+              <MessageCircle className="w-3.5 h-3.5 fill-[#002347]" />
+              <span>Book</span>
             </button>
           </div>
         </div>

@@ -91,7 +91,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenBooking })
               {/* Instagram Channel */}
               <a
                 id="contact-instagram-card"
-                href="https://www.instagram.com/asrealty.official?igsi=MXhteGNhM3Y0YjBmcg=="
+                href="https://www.instagram.com/as_realty_official/?hl=en"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-5 rounded-2xl bg-[#F8F9FA] border border-slate-200 border-b-4 border-b-[#002347] hover:border-[#C5A059] flex items-start gap-4 shadow-sm transition-all group cursor-pointer"
@@ -107,7 +107,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenBooking })
                     Follow us on Instagram
                   </span>
                   <p className="text-xs text-slate-600 mt-1">
-                    Follow <strong className="text-[#002347] font-semibold">@asrealty.official</strong> for exclusive project walkthroughs and architecture highlights.
+                    Follow <strong className="text-[#002347] font-semibold">@as_realty_official</strong> for exclusive project walkthroughs and architecture highlights.
                   </p>
                 </div>
               </a>

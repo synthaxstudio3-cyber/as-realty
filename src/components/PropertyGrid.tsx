@@ -26,17 +26,26 @@ export const PropertyGrid: React.FC<PropertyGridProps> = ({
     return locs.sort((a, b) => a.localeCompare(b));
   }, [properties]);
 
-  // Typology / Configuration options
-  const typologyOptions = [
-    { label: 'All', value: 'all' },
-    { label: '1 BHK', value: '1 BHK' },
-    { label: '2 BHK', value: '2 BHK' },
-    { label: '3 BHK', value: '3 BHK' },
-    { label: '4 BHK', value: '4 BHK' },
-    { label: 'Villa', value: 'Villa' },
-    { label: 'Plot', value: 'Plot' },
-    { label: 'Farm / Field', value: 'Farm / Field' },
-  ];
+  // Typology / Configuration options derived dynamically from available properties
+  const typologyOptions = useMemo(() => {
+    const opts = [{ label: 'All', value: 'all' }];
+    const has2Bhk = properties.some((p) => (p.bhk || '').includes('2'));
+    const has3Bhk = properties.some((p) => (p.bhk || '').includes('3'));
+    const has1Bhk = properties.some((p) => (p.bhk || '').includes('1'));
+    const has4Bhk = properties.some((p) => (p.bhk || '').includes('4'));
+    const hasVilla = properties.some((p) => (p.type || '').toLowerCase().includes('villa'));
+    const hasPlot = properties.some((p) => (p.type || '').toLowerCase().includes('plot'));
+    const hasFarm = properties.some((p) => (p.type || '').toLowerCase().includes('farm'));
+
+    if (has2Bhk) opts.push({ label: '2 BHK', value: '2 BHK' });
+    if (has3Bhk) opts.push({ label: '3 BHK', value: '3 BHK' });
+    if (has1Bhk) opts.push({ label: '1 BHK', value: '1 BHK' });
+    if (has4Bhk) opts.push({ label: '4 BHK', value: '4 BHK' });
+    if (hasVilla) opts.push({ label: 'Villa', value: 'Villa' });
+    if (hasPlot) opts.push({ label: 'Plot', value: 'Plot' });
+    if (hasFarm) opts.push({ label: 'Farm / Field', value: 'Farm / Field' });
+    return opts;
+  }, [properties]);
 
   // Dynamic filter logic
   const filteredProperties = useMemo(() => {

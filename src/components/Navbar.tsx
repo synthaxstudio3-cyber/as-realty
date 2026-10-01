@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Building, ChevronRight, Instagram, Bot, Mic, User, LogOut, ChevronDown } from 'lucide-react';
+import { Menu, X, Building, ChevronRight, Instagram, User, LogOut, ChevronDown, Sparkles, Key } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 interface NavbarProps {
   onOpenBooking: (propertyName?: string) => void;
   onScrollToSection: (sectionId: string) => void;
-  onOpenAIAdvisor?: () => void;
   onOpenAuth?: (mode?: 'signin' | 'signup') => void;
+  onOpenSellProperty?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenBooking,
   onScrollToSection,
-  onOpenAIAdvisor,
   onOpenAuth,
+  onOpenSellProperty,
 }) => {
   const { user, signOut } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,7 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navLinks = [
     { name: 'Featured Residences', id: 'featured-properties-section' },
-    { name: 'AI Concierge', id: 'ai-advisor-section' },
+    { name: 'Due Diligence', id: 'due-diligence-section' },
     { name: 'About AS Realty', id: 'about-us-section' },
     { name: 'Founder Profile', id: 'founder-section' },
     { name: 'Private Services', id: 'services-section' },
@@ -74,33 +74,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-7">
-          {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => handleNavClick(link.id)}
-              className="text-xs uppercase tracking-widest text-slate-200 hover:text-[#E6C687] font-medium transition-colors cursor-pointer py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#C5A059] hover:after:w-full after:transition-all"
-            >
-              {link.name}
-            </button>
-          ))}
-        </nav>
-
         {/* Action Group: Instagram, Phone & Schedule Button */}
         <div className="hidden sm:flex items-center gap-3">
-          {onOpenAIAdvisor && (
-            <button
-              id="nav-ai-advisor-btn"
-              onClick={onOpenAIAdvisor}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-gradient-to-r from-[#001730] to-[#002347] border border-[#E6C687]/60 text-[#E6C687] hover:bg-[#C5A059] hover:text-[#002347] text-xs font-semibold shadow-sm transition-all cursor-pointer group"
-              title="Speak with AS Realty AI Voice Advisor in professional Hinglish"
-            >
-              <Mic className="w-3.5 h-3.5 text-[#E6C687] group-hover:scale-110 transition-transform animate-pulse" />
-              <span>AI Voice Advisor (Hinglish)</span>
-            </button>
-          )}
-
           {/* User Auth Menu or Sign In Button */}
           {user ? (
             <div className="relative">
@@ -149,7 +124,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 id="nav-signin-btn"
                 onClick={() => onOpenAuth('signin')}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#001730] border border-[#C5A059]/40 hover:border-[#E6C687] text-xs font-semibold text-slate-200 hover:text-[#E6C687] transition-all cursor-pointer"
-                title="Sign in or register for personalized AI Voice insights"
+                title="Sign in or register for VIP property portfolio & visit bookings"
               >
                 <User className="w-3.5 h-3.5 text-[#C5A059]" />
                 <span>Sign In</span>
@@ -157,13 +132,25 @@ export const Navbar: React.FC<NavbarProps> = ({
             )
           )}
 
+          {onOpenSellProperty && (
+            <button
+              id="nav-sell-property-btn"
+              onClick={onOpenSellProperty}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#001730] border border-[#C5A059]/50 hover:border-[#E6C687] text-[#E6C687] hover:text-white text-xs font-semibold shadow-sm transition-all cursor-pointer group"
+              title="List & Sell your luxury property in Nagpur with Amit Shivpeth"
+            >
+              <Key className="w-3.5 h-3.5 text-[#C5A059] group-hover:scale-110 transition-transform" />
+              <span>Sell Property</span>
+            </button>
+          )}
+
           <a
             id="nav-instagram-button"
-            href="https://www.instagram.com/asrealty.official?igsi=MXhteGNhM3Y0YjBmcg=="
+            href="https://www.instagram.com/as_realty_official/?hl=en"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#001730] border border-[#C5A059]/40 hover:border-[#E6C687] text-xs font-semibold text-slate-200 hover:text-[#E6C687] transition-all group"
-            title="Follow us on Instagram @asrealty.official"
+            title="Follow us on Instagram @as_realty_official"
           >
             <Instagram className="w-3.5 h-3.5 text-[#E6C687] group-hover:scale-110 transition-transform" />
             <span className="hidden md:inline">Follow us</span>
@@ -253,17 +240,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               )
             )}
 
-            {onOpenAIAdvisor && (
+            {onOpenSellProperty && (
               <button
-                id="mobile-nav-ai-advisor-btn"
+                id="mobile-nav-sell-property-btn"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onOpenAIAdvisor();
+                  onOpenSellProperty();
                 }}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-[#001730] border border-[#E6C687]/60 text-[#E6C687] font-bold text-sm shadow-md"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-[#001730] border border-[#C5A059]/60 text-[#E6C687] font-bold text-sm shadow-md cursor-pointer"
               >
-                <Bot className="w-4 h-4 text-[#E6C687]" />
-                <span>AI Voice &amp; Chat Advisor (Hinglish)</span>
+                <Key className="w-4 h-4 text-[#C5A059]" />
+                <span>Sell Your Property (List with AS Realty)</span>
               </button>
             )}
 
@@ -280,13 +267,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <a
               id="mobile-nav-instagram-button"
-              href="https://www.instagram.com/asrealty.official?igsi=MXhteGNhM3Y0YjBmcg=="
+              href="https://www.instagram.com/as_realty_official/?hl=en"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-gradient-to-r from-[#833ab4]/25 via-[#fd1d1d]/25 to-[#fcb045]/25 border border-[#E6C687]/40 text-white font-medium text-sm"
             >
               <Instagram className="w-4 h-4 text-[#E6C687]" />
-              <span>Follow us on Instagram (@asrealty.official)</span>
+              <span>Follow us on Instagram (@as_realty_official)</span>
             </a>
           </div>
         </div>

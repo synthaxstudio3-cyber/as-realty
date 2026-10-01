@@ -5,9 +5,10 @@ import { ShieldCheck, MessageSquare, ArrowUp, Instagram, Linkedin, Youtube } fro
 interface FooterProps {
   onScrollToSection: (sectionId: string) => void;
   onOpenBooking: () => void;
+  onOpenSellProperty?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onScrollToSection, onOpenBooking }) => {
+export const Footer: React.FC<FooterProps> = ({ onScrollToSection, onOpenBooking, onOpenSellProperty }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -156,6 +157,16 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToSection, onOpenBooking
                 Schedule Meeting on WhatsApp
               </button>
             </li>
+            {onOpenSellProperty && (
+              <li>
+                <button
+                  onClick={onOpenSellProperty}
+                  className="hover:text-[#E6C687] text-[#E6C687] font-semibold transition-colors text-left cursor-pointer flex items-center gap-1.5"
+                >
+                  <span>Sell / List Your Property</span>
+                </button>
+              </li>
+            )}
           </ul>
         </div>
 
@@ -169,19 +180,19 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToSection, onOpenBooking
           </p>
           <div className="pt-1 space-y-2">
             <a
-              href="https://www.instagram.com/asrealty.official?igsi=MXhteGNhM3Y0YjBmcg=="
+              href="https://www.instagram.com/as_realty_official/?hl=en"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#833ab4]/30 via-[#fd1d1d]/30 to-[#fcb045]/30 border border-[#E6C687]/50 hover:border-[#E6C687] text-white hover:text-[#E6C687] text-xs font-semibold transition-all group shadow-sm"
               aria-label="Follow us on Instagram"
             >
               <Instagram className="w-4 h-4 text-[#E6C687] group-hover:scale-110 transition-transform" />
-              <span>Follow us @asrealty.official</span>
+              <span>Follow us @as_realty_official</span>
             </a>
 
             <div className="flex items-center gap-3 pt-1">
               <a
-                href="https://www.instagram.com/asrealty.official?igsi=MXhteGNhM3Y0YjBmcg=="
+                href="https://www.instagram.com/as_realty_official/?hl=en"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2.5 rounded-xl bg-[#001730] border border-white/15 hover:border-[#C5A059] text-slate-200 hover:text-[#E6C687] transition-all"

@@ -1,9 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Supabase project credentials provided by user
-const SUPABASE_PROJECT_ID = 'Mwyudzasqktveuqmdxjb';
+const SUPABASE_PROJECT_ID = 'rmkalviluxpknpaaviyb';
 const DEFAULT_SUPABASE_URL = `https://${SUPABASE_PROJECT_ID.toLowerCase()}.supabase.co`;
-const DEFAULT_SUPABASE_ANON_KEY = 'sb_publishable_JQijMHGYr-zm5s8OeGMVHw_NQcI8bqZ';
+const DEFAULT_SUPABASE_ANON_KEY = 'sb_publishable_MHGPpgxpwFv25g27wVUblQ_AQm7Z_WK';
 
 export const supabaseUrl =
   (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_SUPABASE_URL) ||
@@ -22,16 +22,18 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   },
 });
 
-export interface VoiceSessionRecord {
+export interface ConsultationRecord {
   id?: string;
   user_id?: string | null;
   user_email?: string | null;
   user_name?: string | null;
   query_text: string;
   response_text: string;
-  voice_engine?: string;
+  interaction_type?: string;
   created_at?: string;
 }
+
+export type VoiceSessionRecord = ConsultationRecord;
 
 export interface LeadInquiryRecord {
   id?: string;
@@ -46,30 +48,27 @@ export interface LeadInquiryRecord {
 }
 
 /**
- * Log an AI Voice or Chat interaction to Supabase.
- * Uses graceful error recovery so voice continues uninterrupted even if tables are not yet created in Supabase.
+ * Log a consultation inquiry or interaction to Supabase.
  */
-export async function logVoiceSessionToSupabase(record: VoiceSessionRecord): Promise<boolean> {
+export async function logConsultationToSupabase(record: ConsultationRecord): Promise<boolean> {
   const timestamp = new Date().toISOString();
   const payload = {
     ...record,
     created_at: timestamp,
   };
 
-  // Local mirror in localStorage for instant offline/client-side access
   try {
-    const existing = JSON.parse(localStorage.getItem('as_realty_voice_sessions') || '[]');
+    const existing = JSON.parse(localStorage.getItem('as_realty_consultations') || '[]');
     existing.unshift(payload);
-    localStorage.setItem('as_realty_voice_sessions', JSON.stringify(existing.slice(0, 50)));
+    localStorage.setItem('as_realty_consultations', JSON.stringify(existing.slice(0, 50)));
   } catch (_) {
     // Silently ignore storage quota errors
   }
 
   try {
-    const { error } = await supabase.from('voice_sessions').insert([payload]);
+    const { error } = await supabase.from('consultations').insert([payload]);
     if (error) {
-      // Table might not exist yet or RLS policy enabled; try fallback table or log
-      console.info('[Supabase] Note on voice_sessions table:', error.message);
+      console.info('[Supabase] Note on consultations table:', error.message);
       return false;
     }
     return true;
@@ -78,6 +77,8 @@ export async function logVoiceSessionToSupabase(record: VoiceSessionRecord): Pro
     return false;
   }
 }
+
+export const logVoiceSessionToSupabase = logConsultationToSupabase;
 
 /**
  * Log a lead or visit booking to Supabase.

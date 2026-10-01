@@ -54,14 +54,34 @@ export const WhatsAppBookingModal: React.FC<WhatsAppBookingModalProps> = ({
     }
   }, [selectedPropertyName, properties]);
 
-  // Reset state when modal opens
+  // Reset state when modal opens, lock body scroll, and listen for Escape key
   useEffect(() => {
     if (isOpen) {
       setSubmitted(false);
       setCopied(false);
       if (!fullName) setFullName('');
+
+      const originalOverflow = document.body.style.overflow;
+      const originalPaddingRight = document.body.style.paddingRight;
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+      document.body.style.overflow = 'hidden';
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') onClose();
+      };
+      window.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        document.body.style.paddingRight = originalPaddingRight;
+        window.removeEventListener('keydown', handleKeyDown);
+      };
     }
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 

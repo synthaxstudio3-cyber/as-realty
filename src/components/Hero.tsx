@@ -1,22 +1,17 @@
 import React from 'react';
-import { Search, MapPin, Building, Shield, Award, Calendar, ArrowRight, Sparkles, SlidersHorizontal, Mic } from 'lucide-react';
+import { Building, Shield, Award, Calendar, ArrowRight, Sparkles } from 'lucide-react';
 import { FilterState } from '../types';
 import { COMPANY_DETAILS } from '../data/properties';
 
 interface HeroProps {
-  filters: FilterState;
-  onFilterChange: (newFilters: Partial<FilterState>) => void;
-  onSearchSubmit: () => void;
+  filters?: FilterState;
+  onFilterChange?: (newFilters: Partial<FilterState>) => void;
+  onSearchSubmit?: () => void;
   onOpenBooking: () => void;
-  onOpenAIAdvisor?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
-  filters,
-  onFilterChange,
-  onSearchSubmit,
   onOpenBooking,
-  onOpenAIAdvisor,
 }) => {
   return (
     <section id="hero-section" className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
@@ -73,112 +68,17 @@ export const Hero: React.FC<HeroProps> = ({
             <ArrowRight className="w-4 h-4 text-[#E6C687]" />
           </a>
 
-          {onOpenAIAdvisor && (
-            <button
-              id="hero-ai-advisor-btn"
-              onClick={onOpenAIAdvisor}
-              className="flex items-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-[#001730] to-[#002347] hover:from-[#002347] hover:to-[#001730] border border-[#E6C687]/60 text-[#E6C687] font-semibold text-sm tracking-wider shadow-lg transition-all cursor-pointer group"
-            >
-              <Mic className="w-4 h-4 text-[#E6C687] group-hover:scale-110 transition-transform animate-pulse" />
-              <span>AI Voice Advisor (Default)</span>
-            </button>
-          )}
-        </div>
-
-        {/* Search / Filter Bar Component - Editorial Elevated Card */}
-        <div className="mt-12 p-5 sm:p-6 rounded-2xl bg-white border border-slate-200 border-b-4 border-b-[#002347] shadow-2xl">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            {/* Location Selector */}
-            <div className="relative">
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#002347] mb-1.5 flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-[#C5A059]" />
-                Nagpur Location
-              </label>
-              <select
-                id="hero-location-filter"
-                value={filters.location}
-                onChange={(e) => onFilterChange({ location: e.target.value })}
-                className="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-slate-300 rounded-xl text-slate-800 text-xs sm:text-sm focus:outline-none focus:border-[#C5A059] focus:bg-white cursor-pointer"
-              >
-                <option value="all">All Locations</option>
-                <option value="Seminary Hills">Seminary Hills</option>
-                <option value="Gandhi Nagar">Gandhi Nagar</option>
-                <option value="Dharampeth">Dharampeth</option>
-                <option value="Lakadganj">Lakadganj</option>
-                <option value="Laxmi Nagar">Laxmi Nagar</option>
-                <option value="Civil Lines">Civil Lines</option>
-                <option value="Ramdaspeth">Ramdaspeth</option>
-                <option value="Besa">Besa</option>
-                <option value="Beltarodi">Beltarodi</option>
-                <option value="Manish Nagar">Manish Nagar</option>
-                <option value="Narendra Nagar">Narendra Nagar</option>
-                <option value="Wardha Road">Wardha Road</option>
-                <option value="MIHAN">MIHAN</option>
-                <option value="Hingna">Hingna / Hingna Road</option>
-                <option value="Friends Colony">Friends Colony</option>
-                <option value="Wardhaman Nagar">Wardhaman Nagar</option>
-              </select>
-            </div>
-
-            {/* Typology / Size */}
-            <div className="relative">
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#002347] mb-1.5 flex items-center gap-1">
-                <Building className="w-3.5 h-3.5 text-[#C5A059]" />
-                Configuration / Typology
-              </label>
-              <select
-                id="hero-typology-filter"
-                value={filters.typology}
-                onChange={(e) => onFilterChange({ typology: e.target.value })}
-                className="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-slate-300 rounded-xl text-slate-800 text-xs sm:text-sm focus:outline-none focus:border-[#C5A059] focus:bg-white cursor-pointer font-medium"
-              >
-                <option value="all">All Configurations</option>
-                <option value="1 BHK">1 BHK Residences</option>
-                <option value="2 BHK">2 BHK Residences</option>
-                <option value="3 BHK">3 BHK Luxury Homes</option>
-                <option value="4 BHK">4 BHK Penthouses</option>
-                <option value="Villa">Villas &amp; Row Houses</option>
-                <option value="Plot">Plots (Residential &amp; Commercial)</option>
-                <option value="Farm / Field">Farm / Field (Agro Land &amp; Farmhouses)</option>
-              </select>
-            </div>
-
-            {/* Price Bracket */}
-            <div className="relative">
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#002347] mb-1.5 flex items-center gap-1">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-[#C5A059]" />
-                Price Bracket
-              </label>
-              <select
-                id="hero-price-filter"
-                value={filters.priceRange}
-                onChange={(e) => onFilterChange({ priceRange: e.target.value })}
-                className="w-full px-3.5 py-2.5 bg-[#F8F9FA] border border-slate-300 rounded-xl text-slate-800 text-xs sm:text-sm focus:outline-none focus:border-[#C5A059] focus:bg-white cursor-pointer"
-              >
-                <option value="all">All Price Ranges</option>
-                <option value="under-50l">Under ₹50 Lakhs</option>
-                <option value="50l-1cr">₹50 Lakhs – ₹1 Crore</option>
-                <option value="1cr-2cr">₹1 Crore – ₹2 Crore</option>
-                <option value="above-2cr">₹2 Crore & Above</option>
-              </select>
-            </div>
-
-            {/* Search CTA */}
-            <div className="flex flex-col justify-end">
-              <button
-                id="hero-search-properties-btn"
-                onClick={onSearchSubmit}
-                className="w-full h-[42px] flex items-center justify-center gap-2 px-5 rounded-xl bg-[#002347] hover:bg-[#001730] text-[#E6C687] font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all active:scale-[0.99] cursor-pointer"
-              >
-                <Search className="w-4 h-4" />
-                <span>Filter Nagpur Properties</span>
-              </button>
-            </div>
-          </div>
+          <a
+            href="#due-diligence-section"
+            className="flex items-center gap-2 px-6 py-4 rounded-xl bg-[#001730]/90 hover:bg-[#002347] border border-[#E6C687]/60 text-[#E6C687] font-semibold text-sm tracking-wider shadow-lg transition-all cursor-pointer group"
+          >
+            <Shield className="w-4 h-4 text-[#E6C687] group-hover:scale-110 transition-transform" />
+            <span>Legal Due Diligence</span>
+          </a>
         </div>
 
         {/* High-Status Trust Metrics Bar */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-8 border-t border-white/15 text-slate-200">
+        <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-8 border-t border-white/15 text-slate-200">
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-xl bg-[#001730] border border-[#C5A059]/40 text-[#E6C687] shrink-0">
               <Shield className="w-5 h-5" />

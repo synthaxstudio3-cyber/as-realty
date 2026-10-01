@@ -1,12 +1,13 @@
 import React from 'react';
-import { Car, Briefcase, Globe2, Compass, ArrowRight, ShieldCheck, PhoneCall } from 'lucide-react';
+import { Car, Briefcase, Globe2, Compass, ArrowRight, ShieldCheck, PhoneCall, Key } from 'lucide-react';
 import { COMPANY_DETAILS } from '../data/properties';
 
 interface ServicesSectionProps {
   onOpenBooking: () => void;
+  onOpenSellProperty?: () => void;
 }
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenBooking }) => {
+export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenBooking, onOpenSellProperty }) => {
   const services = [
     {
       icon: Car,
@@ -97,6 +98,48 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenBooking 
               </div>
             );
           })}
+        </div>
+
+        {/* Seller Mandate Callout Banner */}
+        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-[#001730] to-[#002347] border border-[#C5A059]/40 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          <div className="flex items-start sm:items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#C5A059] to-[#E6C687] text-[#002347] flex items-center justify-center font-bold text-xl shrink-0 shadow-md">
+              <Key className="w-6 h-6 text-[#002347]" />
+            </div>
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#C5A059]/20 text-[#E6C687] text-[10px] font-bold uppercase tracking-wider mb-1">
+                Owner &amp; Investor Desk
+              </div>
+              <h3 className="text-xl sm:text-2xl font-serif-luxury font-bold text-white">
+                Looking to Sell Your Luxury Property in Nagpur?
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl leading-relaxed">
+                List with Amit Shivpeth for discreet marketing, 0% upfront listing fee, verified HNI buyers, and institutional valuation across Civil Lines, Dharampeth, Manish Nagar, and MIHAN.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full md:w-auto">
+            {onOpenSellProperty && (
+              <button
+                onClick={onOpenSellProperty}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#E6C687] hover:brightness-110 text-[#002347] font-bold text-xs uppercase tracking-wider shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2"
+              >
+                <Key className="w-4 h-4 text-[#002347]" />
+                <span>List Your Property</span>
+              </button>
+            )}
+            <a
+              href={`https://wa.me/${COMPANY_DETAILS.whatsappNumber}?text=${encodeURIComponent(
+                'Hello Amit Shivpeth, I am a property owner and would like to discuss selling my luxury property in Nagpur with AS Realty.'
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+            >
+              <span>WhatsApp Valuation</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
