@@ -322,27 +322,6 @@ export const WhatsAppBookingModal: React.FC<WhatsAppBookingModalProps> = ({
                 )}
               </div>
 
-              {/* Live Preview Box of WhatsApp message */}
-              <div className="p-4 rounded-xl bg-[#F8F9FA] border border-slate-200 text-xs text-slate-700">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="flex items-center gap-1.5 font-bold text-[#002347] text-[11px] uppercase tracking-wider">
-                    <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
-                    WhatsApp Message Preview
-                  </span>
-                  <button
-                    type="button"
-                    onClick={handleCopy}
-                    className="flex items-center gap-1 text-[11px] text-slate-500 hover:text-[#002347] font-semibold transition-colors cursor-pointer"
-                  >
-                    <Copy className="w-3 h-3" />
-                    {copied ? 'Copied!' : 'Copy'}
-                  </button>
-                </div>
-                <pre className="whitespace-pre-wrap font-sans text-xs bg-white p-3 rounded-lg border border-slate-200 text-slate-700 select-all leading-relaxed">
-                  {whatsappMessage}
-                </pre>
-              </div>
-
               {/* Submit Buttons */}
               <div className="pt-2">
                 <button

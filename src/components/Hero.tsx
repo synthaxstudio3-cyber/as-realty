@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building, Shield, Award, Calendar, ArrowRight, Sparkles } from 'lucide-react';
+import { Building, Shield, Award, Calendar, ArrowRight, Sparkles, Key } from 'lucide-react';
 import { FilterState } from '../types';
 import { COMPANY_DETAILS } from '../data/properties';
 
@@ -8,10 +8,12 @@ interface HeroProps {
   onFilterChange?: (newFilters: Partial<FilterState>) => void;
   onSearchSubmit?: () => void;
   onOpenBooking: () => void;
+  onOpenSellProperty?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
   onOpenBooking,
+  onOpenSellProperty,
 }) => {
   return (
     <section id="hero-section" className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
@@ -60,13 +62,16 @@ export const Hero: React.FC<HeroProps> = ({
             <span>Schedule VIP Site Visit</span>
           </button>
 
-          <a
-            href="#featured-properties-section"
-            className="flex items-center gap-2 px-6 py-4 rounded-xl bg-[#001730]/85 hover:bg-[#001730] border border-[#C5A059]/40 text-white font-medium text-sm tracking-wider transition-all"
+          <button
+            id="hero-sell-property-btn"
+            type="button"
+            onClick={onOpenSellProperty}
+            className="flex items-center gap-2 px-6 py-4 rounded-xl bg-[#001730]/85 hover:bg-[#001730] border border-[#C5A059]/60 hover:border-[#E6C687] text-white hover:text-[#E6C687] font-semibold text-sm tracking-wider shadow-lg transition-all cursor-pointer group"
+            title="List & Sell your luxury property in Nagpur with Amit Shivpeth"
           >
-            <span>Explore Nagpur Portfolio</span>
-            <ArrowRight className="w-4 h-4 text-[#E6C687]" />
-          </a>
+            <Key className="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform" />
+            <span>Sell Property</span>
+          </button>
 
           <a
             href="#due-diligence-section"

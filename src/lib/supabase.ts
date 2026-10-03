@@ -1,26 +1,107 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 // Supabase project credentials provided by user
 const SUPABASE_PROJECT_ID = 'rmkalviluxpknpaaviyb';
-const DEFAULT_SUPABASE_URL = `https://${SUPABASE_PROJECT_ID.toLowerCase()}.supabase.co`;
-const DEFAULT_SUPABASE_ANON_KEY = 'sb_publishable_MHGPpgxpwFv25g27wVUblQ_AQm7Z_WK';
+const FALLBACK_SUPABASE_URL = `https://${SUPABASE_PROJECT_ID.toLowerCase()}.supabase.co`;
+const FALLBACK_SUPABASE_ANON_KEY = 'sb_publishable_MHGPpgxpwFv25g27wVUblQ_AQm7Z_WK';
 
-export const supabaseUrl =
-  (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_SUPABASE_URL) ||
-  DEFAULT_SUPABASE_URL;
+/**
+ * Sanitizes any raw input or environment variable into a valid HTTP/HTTPS Supabase URL.
+ * Handles project IDs without domain, URLs without protocol, undefined/null strings, etc.
+ */
+export function sanitizeSupabaseUrl(rawUrl?: string | null): string {
+  if (!rawUrl || typeof rawUrl !== 'string') {
+    return FALLBACK_SUPABASE_URL;
+  }
+  let trimmed = rawUrl.trim();
+  if (
+    !trimmed ||
+    trimmed === 'undefined' ||
+    trimmed === 'null' ||
+    trimmed === '""' ||
+    trimmed === "''"
+  ) {
+    return FALLBACK_SUPABASE_URL;
+  }
 
-export const supabaseAnonKey =
-  (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_SUPABASE_ANON_KEY) ||
-  DEFAULT_SUPABASE_ANON_KEY;
+  // If the user provided only the project ref e.g. "rmkalviluxpknpaaviyb"
+  if (/^[a-zA-Z0-9_-]{15,35}$/.test(trimmed)) {
+    return `https://${trimmed.toLowerCase()}.supabase.co`;
+  }
+
+  // Prepend https:// if protocol is omitted
+  if (!/^https?:\/\//i.test(trimmed)) {
+    trimmed = `https://${trimmed}`;
+  }
+
+  try {
+    const parsed = new URL(trimmed);
+    if ((parsed.protocol === 'http:' || parsed.protocol === 'https:') && parsed.hostname) {
+      return parsed.origin;
+    }
+  } catch (_) {
+    // Malformed URL string
+  }
+
+  return FALLBACK_SUPABASE_URL;
+}
+
+/**
+ * Sanitizes the Supabase anonymous/publishable key.
+ */
+export function sanitizeSupabaseKey(rawKey?: string | null): string {
+  if (!rawKey || typeof rawKey !== 'string') {
+    return FALLBACK_SUPABASE_ANON_KEY;
+  }
+  const trimmed = rawKey.trim();
+  if (
+    !trimmed ||
+    trimmed === 'undefined' ||
+    trimmed === 'null' ||
+    trimmed === '""' ||
+    trimmed === "''"
+  ) {
+    return FALLBACK_SUPABASE_ANON_KEY;
+  }
+  return trimmed;
+}
+
+const rawEnvUrl =
+  typeof import.meta !== 'undefined' && import.meta.env
+    ? (import.meta.env.VITE_SUPABASE_URL as string | undefined)
+    : undefined;
+
+const rawEnvKey =
+  typeof import.meta !== 'undefined' && import.meta.env
+    ? (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)
+    : undefined;
+
+export const supabaseUrl = sanitizeSupabaseUrl(rawEnvUrl);
+export const supabaseAnonKey = sanitizeSupabaseKey(rawEnvKey);
+
+function initSupabaseClient(): SupabaseClient {
+  try {
+    return createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+      },
+    });
+  } catch (err) {
+    console.error('[Supabase] Initial createClient failed, using fallback:', err);
+    return createClient(FALLBACK_SUPABASE_URL, FALLBACK_SUPABASE_ANON_KEY, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+      },
+    });
+  }
+}
 
 // Create Supabase client instance with persistent session storage
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true,
-  },
-});
+export const supabase: SupabaseClient = initSupabaseClient();
 
 export interface ConsultationRecord {
   id?: string;

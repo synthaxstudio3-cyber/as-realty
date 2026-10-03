@@ -96,6 +96,7 @@ export default function App() {
           onFilterChange={handleFilterChange}
           onSearchSubmit={handleSearchSubmit}
           onOpenBooking={() => handleOpenBooking()}
+          onOpenSellProperty={() => setIsSellPropertyOpen(true)}
         />
 
         {/* Featured Properties Grid with Interactive Filters */}
