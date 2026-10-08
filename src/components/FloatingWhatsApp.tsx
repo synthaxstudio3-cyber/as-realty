@@ -30,7 +30,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
   return (
     <div
       id="floating-whatsapp-container"
-      className={`fixed bottom-6 right-6 z-40 transition-all duration-700 ease-out transform ${
+      className={`fixed bottom-6 left-6 z-40 transition-all duration-700 ease-out transform ${
         isLoaded
           ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
           : 'opacity-0 translate-y-8 scale-95 pointer-events-none'
@@ -40,7 +40,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
       {isMenuOpen && (
         <div
           id="floating-whatsapp-popover"
-          className="absolute bottom-16 right-0 w-72 rounded-2xl bg-gradient-to-b from-[#001730] to-[#002347] border border-[#C5A059]/40 shadow-2xl p-4 text-white mb-2 animate-in fade-in slide-in-from-bottom-3 duration-200"
+          className="absolute bottom-16 left-0 w-72 rounded-2xl bg-gradient-to-b from-[#001730] to-[#002347] border border-[#C5A059]/40 shadow-2xl p-4 text-white mb-2 animate-in fade-in slide-in-from-bottom-3 duration-200"
         >
           <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#C5A059]/20">
             <div className="flex items-center gap-2">

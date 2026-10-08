@@ -333,9 +333,6 @@ export const WhatsAppBookingModal: React.FC<WhatsAppBookingModalProps> = ({
                   <Send className="w-4 h-4" />
                   <span>Book Visit</span>
                 </button>
-                <p className="text-center text-[11px] text-slate-500 mt-2.5 font-medium">
-                  Opens WhatsApp directly with your pre-formatted booking details.
-                </p>
               </div>
             </form>
           ) : (
