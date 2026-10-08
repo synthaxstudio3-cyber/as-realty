@@ -943,6 +943,113 @@ export const RAW_NAGPUR_PROPERTIES = [
           "Individual Plot Demarcation & Prompt Title Handover"
     ],
   },
+  {
+    id: 29,
+    name: "Gated Colony Residential Plot, Katol Road",
+    location: "Katol Road",
+    bhk: "Residential Plot",
+    type: "Residential Plot",
+    price: "₹7.00 L",
+    price_value: 700000,
+    imageUrl: "https://img.staticmb.com/mbphoto/property/cropped_images/2026/Jul/21/Photo_h300_w450/83838259_9_hatsAppImage20260715at12.34.29PM_300_450.jpeg",
+    sqft: 1000,
+    bathrooms: undefined,
+    reraId: "NMRDA Sanctioned",
+    possession: "Immediate Registry",
+    isFeatured: true,
+    gallery: [
+      "https://img.staticmb.com/mbphoto/property/cropped_images/2026/Jul/21/Photo_h300_w450/83838259_9_hatsAppImage20260715at12.34.29PM_300_450.jpeg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVK4849dss_xvXxKKSqYwIRVL_FEAn6/Photo_h300_w450/83838259_10_hatsAppImage20260715at12.34.28PM_300_450.jpeg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVB5tA9dMKZ4G9qkNRqUHyEVjy8AX3b/Photo_h300_w450/83838259_2_PropertyImage432-65716760341513_300_450.jpg"
+    ],
+    description: "Prime 1,000 sq.ft. residential plot situated in a serene gated colony along Katol Road, Nagpur (MagicBricks Listing). Approved by NMRDA with freehold ownership, boundary wall, East-facing orientation, and a 9m (30ft) wide internal road. Overlooks lush garden/park and arterial road with ready registry and clear documentation.",
+    features: [
+      "Prime Katol Road Location, Nagpur",
+      "Plot Area: 1,000 Sq. Ft. (₹700/sq.ft.)",
+      "Total Price: ₹7.00 Lac (Clear Freehold Title)",
+      "NMRDA Approved Gated Colony with Boundary Wall",
+      "East Facing with 9m (30ft) Internal Road Frontage",
+      "Immediate Registry & Clear Title Deed"
+    ],
+    amenities: [
+      "Park & Landscaped Garden Facing View",
+      "Wide 9m Tar Internal Road",
+      "Water Supply Connection Point",
+      "Underground Electrical Grid & Street Lights",
+      "Secured Gated Colony Layout"
+    ],
+  },
+  {
+    id: 30,
+    name: "NMRDA Garden Facing Plot, Saoner",
+    location: "Saoner",
+    bhk: "Residential Plot",
+    type: "Residential Plot",
+    price: "₹7.80 L",
+    price_value: 780000,
+    imageUrl: "https://img.staticmb.com/mbphoto/property/cropped_images/2024/Sep/18/Photo_h300_w450/42eea611-7868-4d32-a514-48000ef52d97_52831495_300_450.jpg",
+    sqft: 2216,
+    bathrooms: undefined,
+    reraId: "NMRDA Approved",
+    possession: "Immediate Registry",
+    isFeatured: true,
+    gallery: [
+      "https://img.staticmb.com/mbphoto/property/cropped_images/2024/Sep/18/Photo_h300_w450/42eea611-7868-4d32-a514-48000ef52d97_52831495_300_450.jpg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnjVE88E9dc0uVX8F3ZTI_Sr8tyZkXqfa/Photo_h300_w450/52831495_9_000010493_300_450.jpg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnjVE88E9dc0uVX8F3ZTI_Sr8tyZkXqfa/Photo_h300_w450/52831495_10_000092983_300_450.jpg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnzVT89I9dcKZJMokzRTsqXsdeu2uijGo/Photo_h300_w450/74e196a3-5aae-431c-93ef-60b390c29b36_52831495_300_450.jpg"
+    ],
+    description: "Spacious 2,216 sq.ft. residential plot located in Saoner, Nagpur (MagicBricks Listing). Sanctioned under NMRDA with freehold ownership and clear documentation. Enjoys an East-facing orientation directly overlooking a planned garden and park, offering abundant ventilation and rapid appreciation.",
+    features: [
+      "Saoner Corridor, Nagpur Metro Region",
+      "Spacious Plot Area: 2,216 Sq. Ft.",
+      "NMRDA Approved & Freehold Ownership",
+      "East Facing Orientation with Garden/Park Views",
+      "High Appreciation Investment Potential",
+      "Immediate Registry Ready"
+    ],
+    amenities: [
+      "Overlooking Garden & Green Belt",
+      "Direct Road Access & Connectivity",
+      "Street Illumination & Electric Connection",
+      "24x7 Water Supply Line Network",
+      "Clear Boundary Markers & Title Assurance"
+    ],
+  },
+  {
+    id: 31,
+    name: "Corner Residential Plot (10m Road), Kalmeshwar",
+    location: "Kalmeshwar",
+    bhk: "Residential Plot",
+    type: "Residential Plot",
+    price: "₹9.00 L",
+    price_value: 900000,
+    imageUrl: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/May/08/Photo_h300_w450/5d9f9076-f918-4369-a6c5-981f8f2d0fbe_79316011_300_450.jpg",
+    sqft: 1431,
+    bathrooms: undefined,
+    reraId: "RL Sanctioned",
+    possession: "Immediate Registry",
+    isFeatured: true,
+    gallery: [
+      "https://img.staticmb.com/mbphoto/property/cropped_images/2025/May/08/Photo_h300_w450/5d9f9076-f918-4369-a6c5-981f8f2d0fbe_79316011_300_450.jpg"
+    ],
+    description: "Well-connected 1,431 sq.ft. residential plot featuring 2 open sides and a 10-meter (33ft) wide front road in Kalmeshwar, Nagpur (MagicBricks Listing). North-facing Vastu-aligned layout with price ₹9.00 Lac (₹629/sq.ft.), close to schools, railway connectivity, and Kalmeshwar business corridor.",
+    features: [
+      "Fast-Growing Kalmeshwar Corridor, Nagpur",
+      "Plot Area: 1,431 Sq. Ft. @ ₹629/sq.ft.",
+      "Total Price: ₹9.00 Lac (Resale)",
+      "2 Open Sides with Wide 10m Road Frontage",
+      "North Facing Layout, Ready for Villa Construction",
+      "Prompt Registry & Clear Titles"
+    ],
+    amenities: [
+      "Wide 10-Meter Wide Road Frontage",
+      "Double Open Side Natural Airflow",
+      "Electric Utility Grid Connected",
+      "Municipal Water Connection Ready",
+      "Proximity to Kalmeshwar Station & Market"
+    ],
+  },
 ];
 
 export const PROPERTIES: Property[] = RAW_NAGPUR_PROPERTIES.map((item: any) => {

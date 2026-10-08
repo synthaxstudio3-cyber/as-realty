@@ -11,7 +11,6 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { WhatsAppBookingModal } from './components/WhatsAppBookingModal';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
-import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { AuthModal } from './components/AuthModal';
 import { SellPropertyModal } from './components/SellPropertyModal';
 
@@ -131,12 +130,6 @@ export default function App() {
       <Footer
         onScrollToSection={handleScrollToSection}
         onOpenBooking={() => handleOpenBooking()}
-        onOpenSellProperty={() => setIsSellPropertyOpen(true)}
-      />
-
-      {/* Sticky Bottom-Right WhatsApp Quick Contact Widget */}
-      <FloatingWhatsApp 
-        onOpenBooking={() => handleOpenBooking()} 
         onOpenSellProperty={() => setIsSellPropertyOpen(true)}
       />
 
