@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Building, ChevronRight, Instagram, Sparkles, Key } from 'lucide-react';
+import { Menu, X, Building, ChevronRight, Instagram, Sparkles, Key, ArrowLeftRight } from 'lucide-react';
 
 interface NavbarProps {
   onOpenBooking: (propertyName?: string) => void;
   onScrollToSection: (sectionId: string) => void;
   onOpenSellProperty?: () => void;
+  onOpenComparisonModal?: () => void;
+  comparisonCount?: number;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenBooking,
   onScrollToSection,
   onOpenSellProperty,
+  onOpenComparisonModal,
+  comparisonCount = 0,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -43,15 +47,15 @@ export const Navbar: React.FC<NavbarProps> = ({
       id="main-navigation-header"
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#002347]/95 backdrop-blur-md border-b border-[#C5A059]/30 py-3 shadow-lg shadow-[#002347]/30'
-          : 'bg-[#002347] py-4 border-b border-[#001730]'
+          ? 'bg-[#002347]/95 backdrop-blur-md border-b border-[#C5A059]/30 py-2 sm:py-3 shadow-lg shadow-[#002347]/30'
+          : 'bg-[#002347] py-2.5 sm:py-4 border-b border-[#001730]'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Logo */}
         <div
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="flex items-center gap-3 cursor-pointer group select-none"
+          className="flex items-center gap-2 sm:gap-3 cursor-pointer group select-none"
         >
           {/* Logo Image */}
           <div className="relative">
@@ -62,22 +66,44 @@ export const Navbar: React.FC<NavbarProps> = ({
                   'https://plain-apac-prod-public.komododecks.com/202610/09/9djtGLzdI9Ib3ddoxBO1/image.png';
               }}
               alt="AS Realty Logo"
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-contain bg-[#001730] border border-[#C5A059]/70 shadow-md group-hover:border-[#E6C687] transition-all"
+              className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg object-contain bg-[#001730] border border-[#C5A059]/70 shadow-md group-hover:border-[#E6C687] transition-all"
             />
           </div>
 
           <div>
-            <span className="font-cinzel text-xl sm:text-2xl font-bold tracking-widest text-white flex items-center gap-1.5">
+            <span className="font-cinzel text-base sm:text-2xl font-bold tracking-widest text-white flex items-center gap-1 sm:gap-1.5">
               AS <span className="text-[#C5A059]">REALTY</span>
             </span>
-            <span className="block text-[10px] text-slate-300 uppercase tracking-wider font-sans">
+            <span className="block text-[9px] sm:text-[10px] text-slate-300 uppercase tracking-wider font-sans">
               Amit Shivpeth
             </span>
           </div>
         </div>
 
-        {/* Action Group: Instagram, Phone & Schedule Button */}
-        <div className="hidden sm:flex items-center gap-3">
+        {/* Action Group: Compare, Instagram, Sell Property & Schedule Button */}
+        <div className="hidden sm:flex items-center gap-2.5">
+          {onOpenComparisonModal && (
+            <button
+              id="nav-compare-properties-btn"
+              type="button"
+              onClick={onOpenComparisonModal}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg border text-xs font-semibold shadow-sm transition-all cursor-pointer ${
+                comparisonCount > 0
+                  ? 'bg-[#001730] border-[#C5A059] text-[#E6C687] shadow-[#C5A059]/20'
+                  : 'bg-[#001730] border-[#C5A059]/40 hover:border-[#E6C687] text-slate-200 hover:text-[#E6C687]'
+              }`}
+              title="Compare luxury properties side-by-side"
+            >
+              <ArrowLeftRight className="w-3.5 h-3.5 text-[#C5A059]" />
+              <span>Compare</span>
+              {comparisonCount > 0 && (
+                <span className="w-5 h-5 rounded-full bg-[#C5A059] text-[#002347] font-bold text-[10px] flex items-center justify-center">
+                  {comparisonCount}
+                </span>
+              )}
+            </button>
+          )}
+
           {onOpenSellProperty && (
             <button
               id="nav-sell-property-btn"
@@ -105,28 +131,43 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             id="nav-contact-us-button"
             onClick={() => onOpenBooking()}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#E6C687] hover:from-[#B8924B] hover:to-[#D9B97A] text-[#002347] font-bold text-xs uppercase tracking-wider shadow-md shadow-[#C5A059]/20 transition-all transform active:scale-95 cursor-pointer"
+            className="flex items-center gap-2 px-4 md:px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#E6C687] hover:from-[#B8924B] hover:to-[#D9B97A] text-[#002347] font-bold text-xs uppercase tracking-wider shadow-md shadow-[#C5A059]/20 transition-all transform active:scale-95 cursor-pointer"
           >
             <Building className="w-3.5 h-3.5 text-[#002347]" />
             <span>Schedule Meeting</span>
           </button>
         </div>
 
-        {/* Mobile Hamburger Button */}
-        <div className="flex sm:hidden items-center gap-2">
+        {/* Mobile Hamburger Button & Quick Actions */}
+        <div className="flex sm:hidden items-center gap-1.5">
+          {onOpenComparisonModal && (
+            <button
+              onClick={onOpenComparisonModal}
+              className={`p-1.5 rounded-lg border text-[11px] font-bold flex items-center gap-1 ${
+                comparisonCount > 0
+                  ? 'bg-[#001730] border-[#C5A059] text-[#E6C687]'
+                  : 'bg-[#001730] border-white/20 text-slate-300'
+              }`}
+              title="Compare properties"
+            >
+              <ArrowLeftRight className="w-3.5 h-3.5 text-[#C5A059]" />
+              {comparisonCount > 0 && <span>{comparisonCount}</span>}
+            </button>
+          )}
+
           <button
             onClick={() => onOpenBooking()}
-            className="px-3 py-1.5 rounded-lg bg-[#C5A059] text-[#002347] font-bold text-[11px] uppercase tracking-wider"
+            className="px-2.5 py-1.5 rounded-lg bg-[#C5A059] text-[#002347] font-bold text-[10px] uppercase tracking-wider"
           >
             Book Visit
           </button>
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg bg-[#001730] border border-white/15 text-slate-200 hover:text-white focus:outline-none"
+            className="p-1.5 rounded-lg bg-[#001730] border border-white/15 text-slate-200 hover:text-white focus:outline-none"
             aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
@@ -148,6 +189,22 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           <div className="pt-2 space-y-3">
+            {onOpenComparisonModal && (
+              <button
+                id="mobile-nav-compare-btn"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenComparisonModal();
+                }}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-[#001730] border border-[#C5A059]/60 text-[#E6C687] font-bold text-sm shadow-md cursor-pointer"
+              >
+                <ArrowLeftRight className="w-4 h-4 text-[#C5A059]" />
+                <span>
+                  Compare Properties Side-by-Side {comparisonCount > 0 ? `(${comparisonCount})` : ''}
+                </span>
+              </button>
+            )}
+
             {onOpenSellProperty && (
               <button
                 id="mobile-nav-sell-property-btn"

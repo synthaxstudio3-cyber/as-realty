@@ -22,67 +22,67 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenBooking })
   };
 
   return (
-    <section id="contact-section" className="py-20 bg-white relative border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+    <section id="contact-section" className="py-10 sm:py-16 md:py-20 bg-white relative border-t border-slate-200">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-12 items-start">
           {/* Contact Details & Leadership Column */}
-          <div className="lg:col-span-6 space-y-8">
+          <div className="lg:col-span-6 space-y-6 sm:space-y-8">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#002347] border border-[#C5A059]/40 text-xs text-[#E6C687] uppercase tracking-widest font-semibold mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#002347] border border-[#C5A059]/40 text-[10px] sm:text-xs text-[#E6C687] uppercase tracking-widest font-semibold mb-2 sm:mb-3">
                 Private Advisory
               </div>
-              <h2 className="text-3xl sm:text-4xl font-serif-luxury font-bold text-[#002347] tracking-tight">
+              <h2 className="text-2xl sm:text-4xl font-serif-luxury font-bold text-[#002347] tracking-tight">
                 Connect with AS Realty
               </h2>
-              <p className="text-slate-600 text-sm mt-2 leading-relaxed max-w-lg">
+              <p className="text-slate-600 text-xs sm:text-sm mt-1.5 sm:mt-2 leading-relaxed max-w-lg">
                 Whether you are exploring private acquisitions in Civil Lines, seeking high-floor penthouses in Ramdaspeth, or arranging a confidential meeting with <strong className="text-[#002347] font-semibold">Amit Shivpeth</strong>, our executive desk is at your service.
               </p>
             </div>
 
             {/* Direct Channel Cards */}
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {/* WhatsApp Direct */}
               <a
                 href={`https://wa.me/${COMPANY_DETAILS.whatsappNumber}?text=${encodeURIComponent('Hello AS Realty, I would like to schedule a private advisory meeting.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-[#F8F9FA] border border-slate-200 border-b-4 border-b-emerald-600 hover:border-b-emerald-500 transition-all flex items-start gap-4 group block shadow-sm hover:shadow-md"
+                className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#F8F9FA] border border-slate-200 border-b-4 border-b-emerald-600 hover:border-b-emerald-500 transition-all flex items-start gap-3 sm:gap-4 group block shadow-sm hover:shadow-md"
               >
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-600 border border-emerald-500/30 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                  <MessageSquare className="w-6 h-6" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-500/20 text-emerald-600 border border-emerald-500/30 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs uppercase tracking-wider text-emerald-600 font-bold">
+                    <span className="text-[11px] sm:text-xs uppercase tracking-wider text-emerald-600 font-bold">
                       Instant WhatsApp Concierge
                     </span>
-                    <span className="text-[10px] text-slate-500 font-medium">Average Reply &lt; 15 mins</span>
+                    <span className="text-[9px] sm:text-[10px] text-slate-500 font-medium">Average Reply &lt; 15 mins</span>
                   </div>
-                  <h3 className="text-lg font-bold text-[#002347] mt-0.5 group-hover:text-emerald-700 transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-[#002347] mt-0.5 group-hover:text-emerald-700 transition-colors">
                     {COMPANY_DETAILS.phoneDisplay}
                   </h3>
-                  <p className="text-xs text-slate-600 mt-1">
+                  <p className="text-[11px] sm:text-xs text-slate-600 mt-0.5 sm:mt-1">
                     Direct line for site visits, portfolio dossiers, and meeting coordination.
                   </p>
                 </div>
               </a>
 
               {/* Direct Email */}
-              <div className="p-5 rounded-2xl bg-[#F8F9FA] border border-slate-200 border-b-4 border-b-[#002347] flex items-start gap-4 shadow-sm">
-                <div className="w-12 h-12 rounded-xl bg-[#002347] text-[#E6C687] border border-[#C5A059]/40 flex items-center justify-center shrink-0 shadow-sm">
-                  <Mail className="w-6 h-6" />
+              <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#F8F9FA] border border-slate-200 border-b-4 border-b-[#002347] flex items-start gap-3 sm:gap-4 shadow-sm">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#002347] text-[#E6C687] border border-[#C5A059]/40 flex items-center justify-center shrink-0 shadow-sm">
+                  <Mail className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-slate-500 font-semibold block">
+                  <span className="text-[11px] sm:text-xs uppercase tracking-wider text-slate-500 font-semibold block">
                     Confidential Dossier Inquiries
                   </span>
                   <a
                     href={`mailto:${COMPANY_DETAILS.email}`}
-                    className="text-base font-bold text-[#002347] hover:text-[#C5A059] transition-colors block mt-0.5"
+                    className="text-sm sm:text-base font-bold text-[#002347] hover:text-[#C5A059] transition-colors block mt-0.5"
                   >
                     {COMPANY_DETAILS.email}
                   </a>
-                  <p className="text-xs text-slate-600 mt-1">
+                  <p className="text-[11px] sm:text-xs text-slate-600 mt-0.5 sm:mt-1">
                     Formal RFPs, developer correspondence, and institutional mandates.
                   </p>
                 </div>
@@ -131,7 +131,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenBooking })
           </div>
 
           {/* Quick Direct WhatsApp Inquiry Form */}
-          <div className="lg:col-span-6 bg-[#F8F9FA] border border-slate-200 border-b-4 border-b-[#002347] rounded-2xl p-6 sm:p-8 shadow-xl">
+          <div className="lg:col-span-6 bg-[#F8F9FA] border border-slate-200 border-b-4 border-b-[#002347] rounded-xl sm:rounded-2xl p-4 sm:p-8 shadow-xl">
             <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
               <div>
                 <h3 className="text-xl sm:text-2xl font-serif-luxury font-bold text-[#002347]">

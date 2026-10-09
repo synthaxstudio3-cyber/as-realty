@@ -16,9 +16,9 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToSection, onOpenBooking
   return (
     <footer className="bg-[#002347] border-t-2 border-[#C5A059]/40 text-slate-300 text-xs">
       {/* Top Banner */}
-      <div className="border-b border-white/10 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+      <div className="border-b border-white/10 py-4 sm:py-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center gap-2.5 sm:gap-3">
             <img
               src="/logo.png"
               onError={(e) => {
@@ -26,24 +26,24 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToSection, onOpenBooking
                   'https://plain-apac-prod-public.komododecks.com/202610/09/9djtGLzdI9Ib3ddoxBO1/image.png';
               }}
               alt="AS Realty Logo"
-              className="w-10 h-10 rounded-lg object-contain bg-[#001730] border border-[#C5A059]/60 shadow-sm"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg object-contain bg-[#001730] border border-[#C5A059]/60 shadow-sm"
             />
             <div>
-              <span className="font-cinzel text-lg font-bold text-white tracking-wider block">
+              <span className="font-cinzel text-base sm:text-lg font-bold text-white tracking-wider block">
                 AS REALTY
               </span>
-              <span className="text-[11px] text-slate-300">
+              <span className="text-[10px] sm:text-[11px] text-slate-300">
                 Under the Leadership of Amit Shivpeth
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2.5 sm:gap-4 w-full sm:w-auto justify-between sm:justify-start">
             <a
               href={`https://wa.me/${COMPANY_DETAILS.whatsappNumber}?text=${encodeURIComponent('Hello AS Realty, I would like to connect with your luxury advisory desk.')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#001730] border border-emerald-400/40 text-emerald-300 hover:bg-emerald-600 hover:text-white transition-all font-medium"
+              className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[#001730] border border-emerald-400/40 text-emerald-300 hover:bg-emerald-600 hover:text-white transition-all font-medium text-[11px] sm:text-xs"
             >
               <MessageSquare className="w-3.5 h-3.5" />
               <span>WhatsApp: {COMPANY_DETAILS.phoneDisplay}</span>
@@ -51,17 +51,17 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToSection, onOpenBooking
 
             <button
               onClick={scrollToTop}
-              className="p-2.5 rounded-xl bg-[#001730] border border-white/15 hover:border-[#C5A059] text-slate-200 hover:text-white transition-colors cursor-pointer"
+              className="p-2 sm:p-2.5 rounded-xl bg-[#001730] border border-white/15 hover:border-[#C5A059] text-slate-200 hover:text-white transition-colors cursor-pointer"
               aria-label="Scroll to top"
             >
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
           </div>
         </div>
       </div>
 
       {/* Main Footer Links */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
         {/* Brand Summary */}
         <div className="space-y-3">
           <h4 className="text-sm font-semibold uppercase tracking-wider text-white font-cinzel">

@@ -16,7 +16,7 @@ export const Hero: React.FC<HeroProps> = ({
   onOpenSellProperty,
 }) => {
   return (
-    <section id="hero-section" className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+    <section id="hero-section" className="relative pt-24 pb-12 sm:pt-32 sm:pb-20 md:pt-40 md:pb-32 overflow-hidden">
       {/* Background Architectural Luxury Image & Scrim */}
       <div className="absolute inset-0 z-0">
         <img
@@ -31,34 +31,34 @@ export const Hero: React.FC<HeroProps> = ({
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Prestige Pill */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#001730]/90 border border-[#C5A059]/50 backdrop-blur-md mb-6 shadow-lg">
+        <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-[#001730]/90 border border-[#C5A059]/50 backdrop-blur-md mb-4 sm:mb-6 shadow-lg">
           <Sparkles className="w-3.5 h-3.5 text-[#E6C687]" />
-          <span className="text-xs uppercase tracking-widest text-[#E6C687] font-semibold">
+          <span className="text-[11px] sm:text-xs uppercase tracking-widest text-[#E6C687] font-semibold">
             Nagpur Premier Real Estate Advisory
           </span>
           <span className="w-1 h-1 rounded-full bg-[#C5A059]" />
-          <span className="text-xs text-slate-200 font-medium">Amit Shivpeth</span>
+          <span className="text-[11px] sm:text-xs text-slate-200 font-medium">Amit Shivpeth</span>
         </div>
 
         {/* High-Impact Headline */}
         <div className="max-w-3xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif-luxury font-bold text-white tracking-tight leading-[1.08]">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-serif-luxury font-bold text-white tracking-tight leading-[1.12]">
             Defining Elite Living in <span className="italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#E6C687] via-[#D4AF37] to-[#C5A059]">Nagpur</span>
           </h1>
 
-          <p className="mt-5 text-base sm:text-lg md:text-xl text-slate-200 font-light leading-relaxed max-w-2xl">
+          <p className="mt-3 sm:mt-5 text-sm sm:text-base md:text-xl text-slate-200 font-light leading-relaxed max-w-2xl">
             Curating Nagpur’s most prestigious architectural marvels, sky penthouses, and bespoke private estates across Civil Lines, Ramdaspeth, and Dharampeth.
           </p>
         </div>
 
         {/* Primary Action Buttons */}
-        <div className="mt-8 flex flex-wrap items-center gap-4">
+        <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-2.5 sm:gap-4">
           <button
             id="hero-schedule-visit-btn"
             onClick={onOpenBooking}
-            className="flex items-center gap-2.5 px-7 py-4 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#E6C687] hover:from-[#B8924B] hover:to-[#D9B97A] text-[#002347] font-bold text-sm tracking-wider uppercase shadow-xl shadow-[#C5A059]/25 transition-all transform active:scale-95 cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2.5 sm:px-7 sm:py-4 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#E6C687] hover:from-[#B8924B] hover:to-[#D9B97A] text-[#002347] font-bold text-xs sm:text-sm tracking-wider uppercase shadow-xl shadow-[#C5A059]/25 transition-all transform active:scale-95 cursor-pointer"
           >
-            <Calendar className="w-4 h-4 text-[#002347]" />
+            <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#002347]" />
             <span>Schedule VIP Site Visit</span>
           </button>
 
@@ -66,61 +66,61 @@ export const Hero: React.FC<HeroProps> = ({
             id="hero-sell-property-btn"
             type="button"
             onClick={onOpenSellProperty}
-            className="flex items-center gap-2 px-6 py-4 rounded-xl bg-[#001730]/85 hover:bg-[#001730] border border-[#C5A059]/60 hover:border-[#E6C687] text-white hover:text-[#E6C687] font-semibold text-sm tracking-wider shadow-lg transition-all cursor-pointer group"
+            className="flex items-center gap-1.5 sm:gap-2 px-3.5 py-2.5 sm:px-6 sm:py-4 rounded-xl bg-[#001730]/85 hover:bg-[#001730] border border-[#C5A059]/60 hover:border-[#E6C687] text-white hover:text-[#E6C687] font-semibold text-xs sm:text-sm tracking-wider shadow-lg transition-all cursor-pointer group"
             title="List & Sell your luxury property in Nagpur with Amit Shivpeth"
           >
-            <Key className="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform" />
+            <Key className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C5A059] group-hover:scale-110 transition-transform" />
             <span>Sell Property</span>
           </button>
 
           <a
             href="#due-diligence-section"
-            className="flex items-center gap-2 px-6 py-4 rounded-xl bg-[#001730]/90 hover:bg-[#002347] border border-[#E6C687]/60 text-[#E6C687] font-semibold text-sm tracking-wider shadow-lg transition-all cursor-pointer group"
+            className="flex items-center gap-1.5 sm:gap-2 px-3.5 py-2.5 sm:px-6 sm:py-4 rounded-xl bg-[#001730]/90 hover:bg-[#002347] border border-[#E6C687]/60 text-[#E6C687] font-semibold text-xs sm:text-sm tracking-wider shadow-lg transition-all cursor-pointer group"
           >
-            <Shield className="w-4 h-4 text-[#E6C687] group-hover:scale-110 transition-transform" />
+            <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#E6C687] group-hover:scale-110 transition-transform" />
             <span>Legal Due Diligence</span>
           </a>
         </div>
 
         {/* High-Status Trust Metrics Bar */}
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-8 border-t border-white/15 text-slate-200">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-[#001730] border border-[#C5A059]/40 text-[#E6C687] shrink-0">
-              <Shield className="w-5 h-5" />
+        <div className="mt-8 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 pt-5 sm:pt-8 border-t border-white/15 text-slate-200">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="p-2 sm:p-2.5 rounded-xl bg-[#001730] border border-[#C5A059]/40 text-[#E6C687] shrink-0">
+              <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <p className="text-lg sm:text-xl font-serif-luxury font-bold text-white">100% MahaRERA</p>
-              <p className="text-xs text-slate-300">Nagpur Verified Title Records</p>
+              <p className="text-sm sm:text-xl font-serif-luxury font-bold text-white">100% MahaRERA</p>
+              <p className="text-[11px] sm:text-xs text-slate-300">Nagpur Verified Title Records</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-[#001730] border border-[#C5A059]/40 text-[#E6C687] shrink-0">
-              <Award className="w-5 h-5" />
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="p-2 sm:p-2.5 rounded-xl bg-[#001730] border border-[#C5A059]/40 text-[#E6C687] shrink-0">
+              <Award className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <p className="text-lg sm:text-xl font-serif-luxury font-bold text-white">₹250+ Cr</p>
-              <p className="text-xs text-slate-300">Curated Nagpur Prime Portfolio</p>
+              <p className="text-sm sm:text-xl font-serif-luxury font-bold text-white">₹250+ Cr</p>
+              <p className="text-[11px] sm:text-xs text-slate-300">Curated Nagpur Prime Portfolio</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-[#001730] border border-[#C5A059]/40 text-[#E6C687] shrink-0">
-              <Sparkles className="w-5 h-5" />
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="p-2 sm:p-2.5 rounded-xl bg-[#001730] border border-[#C5A059]/40 text-[#E6C687] shrink-0">
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <p className="text-lg sm:text-xl font-serif-luxury font-bold text-white">Nagpur Exclusive</p>
-              <p className="text-xs text-slate-300">Bespoke HNI Advisory Desk</p>
+              <p className="text-sm sm:text-xl font-serif-luxury font-bold text-white">Nagpur Exclusive</p>
+              <p className="text-[11px] sm:text-xs text-slate-300">Bespoke HNI Advisory Desk</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-[#001730] border border-[#C5A059]/40 text-[#E6C687] shrink-0">
-              <Calendar className="w-5 h-5" />
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="p-2 sm:p-2.5 rounded-xl bg-[#001730] border border-[#C5A059]/40 text-[#E6C687] shrink-0">
+              <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <p className="text-lg sm:text-xl font-serif-luxury font-bold text-white">Direct Scheduling</p>
-              <p className="text-xs text-slate-300">VIP Nagpur Site Visits</p>
+              <p className="text-sm sm:text-xl font-serif-luxury font-bold text-white">Direct Scheduling</p>
+              <p className="text-[11px] sm:text-xs text-slate-300">VIP Nagpur Site Visits</p>
             </div>
           </div>
         </div>

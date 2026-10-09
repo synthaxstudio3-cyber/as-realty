@@ -71,51 +71,51 @@ export const DueDiligenceSection: React.FC<DueDiligenceSectionProps> = ({
   return (
     <section
       id="due-diligence-section"
-      className="py-20 bg-gradient-to-b from-[#001730] via-[#002347] to-[#001730] text-white relative overflow-hidden"
+      className="py-10 sm:py-16 md:py-20 bg-gradient-to-b from-[#001730] via-[#002347] to-[#001730] text-white relative overflow-hidden"
     >
       {/* Background Decorative Pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#C5A059_1px,transparent_1px)] [background-size:24px_24px]" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C5A059]/20 border border-[#C5A059]/40 text-[#E6C687] text-xs font-bold uppercase tracking-widest mb-4">
+        <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#C5A059]/20 border border-[#C5A059]/40 text-[#E6C687] text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3 sm:mb-4">
             <ShieldCheck className="w-3.5 h-3.5" />
             <span>Integrity &amp; Legal Precision</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif-luxury font-bold text-white tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-serif-luxury font-bold text-white tracking-tight leading-tight">
             Institutional-Grade <span className="text-[#E6C687]">Due Diligence</span> &amp; Advisory
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+          <p className="mt-2.5 sm:mt-4 text-xs sm:text-base text-slate-300 font-light leading-relaxed">
             Every transaction represented by <strong className="text-white font-semibold">Amit Shivpeth</strong> is backed by meticulous legal audits, sanctioned layouts, and genuine market intelligence across Nagpur’s elite residential and investment corridors.
           </p>
         </div>
 
         {/* 2-Column Content: Left Due Diligence Pillars, Right Luxury Investment & EMI Estimator */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           {/* Left Column: Due Diligence Pillars (7 Cols) */}
-          <div className="lg:col-span-7 space-y-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="lg:col-span-7 space-y-4 sm:space-y-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {dueDiligenceChecklist.map((item, index) => (
                 <div
                   key={index}
-                  className="p-5 rounded-2xl bg-[#001224]/80 border border-[#C5A059]/30 backdrop-blur-sm hover:border-[#E6C687]/60 transition-all group flex flex-col justify-between"
+                  className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#001224]/80 border border-[#C5A059]/30 backdrop-blur-sm hover:border-[#E6C687]/60 transition-all group flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="p-2 rounded-xl bg-[#002347] text-[#E6C687] border border-[#C5A059]/40 group-hover:scale-105 transition-transform">
-                        <FileCheck2 className="w-5 h-5" />
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <div className="p-1.5 sm:p-2 rounded-xl bg-[#002347] text-[#E6C687] border border-[#C5A059]/40 group-hover:scale-105 transition-transform">
+                        <FileCheck2 className="w-4 h-4 sm:w-5 sm:h-5" />
                       </div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#C5A059]/20 text-[#E6C687] border border-[#C5A059]/40">
+                      <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#C5A059]/20 text-[#E6C687] border border-[#C5A059]/40">
                         {item.badge}
                       </span>
                     </div>
-                    <h3 className="text-sm font-bold text-white group-hover:text-[#E6C687] transition-colors leading-snug">
+                    <h3 className="text-xs sm:text-sm font-bold text-white group-hover:text-[#E6C687] transition-colors leading-snug">
                       {item.title}
                     </h3>
-                    <p className="mt-2 text-xs text-slate-300 leading-relaxed">
+                    <p className="mt-1.5 sm:mt-2 text-[11px] sm:text-xs text-slate-300 leading-relaxed">
                       {item.desc}
                     </p>
                   </div>
@@ -124,36 +124,36 @@ export const DueDiligenceSection: React.FC<DueDiligenceSectionProps> = ({
             </div>
 
             {/* Direct White-Glove Guarantee Banner */}
-            <div className="p-6 rounded-2xl bg-gradient-to-r from-[#001730] to-[#0a1f38] border border-[#C5A059]/40 flex flex-col sm:flex-row items-center justify-between gap-5">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#C5A059] to-[#E6C687] text-[#002347] flex items-center justify-center font-bold text-lg shrink-0 shadow-lg">
+            <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#001730] to-[#0a1f38] border border-[#C5A059]/40 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-5">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-[#C5A059] to-[#E6C687] text-[#002347] flex items-center justify-center font-bold text-base sm:text-lg shrink-0 shadow-lg">
                   AS
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white">Direct Guidance with Amit Shivpeth</h4>
-                  <p className="text-xs text-slate-300 mt-0.5">
+                  <h4 className="text-xs sm:text-sm font-bold text-white">Direct Guidance with Amit Shivpeth</h4>
+                  <p className="text-[11px] sm:text-xs text-slate-300 mt-0.5">
                     Speak directly regarding 7/12 land titles, MahaRERA sanctions, or off-market penthouses.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 shrink-0 w-full sm:w-auto">
+              <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 w-full sm:w-auto">
                 <a
                   href={`https://wa.me/${COMPANY_DETAILS.whatsappNumber}?text=${encodeURIComponent(
                     'Hello Amit Shivpeth, I would like to schedule a private advisory consultation for Nagpur luxury properties.'
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider shadow transition-all cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] sm:text-xs uppercase tracking-wider shadow transition-all cursor-pointer"
                 >
-                  <MessageSquare className="w-4 h-4" />
+                  <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <span>WhatsApp Concierge</span>
                 </a>
                 <button
                   onClick={() => onOpenBooking()}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#E6C687] hover:bg-[#C5A059] text-[#002347] font-bold text-xs uppercase tracking-wider shadow transition-all cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-[#E6C687] hover:bg-[#C5A059] text-[#002347] font-bold text-[11px] sm:text-xs uppercase tracking-wider shadow transition-all cursor-pointer"
                 >
-                  <CalendarCheck className="w-4 h-4" />
+                  <CalendarCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <span>Book VIP Visit</span>
                 </button>
               </div>
@@ -161,7 +161,7 @@ export const DueDiligenceSection: React.FC<DueDiligenceSectionProps> = ({
           </div>
 
           {/* Right Column: Mortgage & Investment Calculator (5 Cols) */}
-          <div className="lg:col-span-5 bg-[#001224]/90 rounded-2xl border border-[#C5A059]/40 p-6 sm:p-7 shadow-2xl backdrop-blur-md">
+          <div className="lg:col-span-5 bg-[#001224]/90 rounded-xl sm:rounded-2xl border border-[#C5A059]/40 p-4 sm:p-7 shadow-2xl backdrop-blur-md">
             <div className="flex items-center justify-between pb-4 mb-5 border-b border-[#C5A059]/25">
               <div className="flex items-center gap-2.5">
                 <div className="p-2 rounded-xl bg-[#002347] text-[#E6C687] border border-[#C5A059]/40">

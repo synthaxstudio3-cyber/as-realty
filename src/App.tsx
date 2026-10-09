@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Property, FilterState } from './types';
 import { PROPERTIES } from './data/properties';
 import { Navbar } from './components/Navbar';
@@ -14,6 +14,8 @@ import { WhatsAppBookingModal } from './components/WhatsAppBookingModal';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
 import { SellPropertyModal } from './components/SellPropertyModal';
 import { MovableVoiceAgent } from './components/MovableVoiceAgent';
+import { ComparisonTray } from './components/ComparisonTray';
+import { PropertyComparisonModal } from './components/PropertyComparisonModal';
 
 export default function App() {
   const [properties] = useState<Property[]>(PROPERTIES);
@@ -29,6 +31,65 @@ export default function App() {
   const [isSellPropertyOpen, setIsSellPropertyOpen] = useState(false);
   const [selectedBookingPropertyName, setSelectedBookingPropertyName] = useState<string>('');
   const [detailProperty, setDetailProperty] = useState<Property | null>(null);
+
+  // Property Side-by-Side Comparison state
+  const [selectedComparisonIds, setSelectedComparisonIds] = useState<(string | number)[]>([]);
+  const [isComparisonModalOpen, setIsComparisonModalOpen] = useState(false);
+
+  const selectedComparisonProperties = useMemo(() => {
+    return properties.filter((p) =>
+      selectedComparisonIds.some((id) => String(id) === String(p.id))
+    );
+  }, [properties, selectedComparisonIds]);
+
+  const handleToggleCompare = (property: Property) => {
+    setSelectedComparisonIds((prev) => {
+      const exists = prev.some((id) => String(id) === String(property.id));
+      if (exists) {
+        return prev.filter((id) => String(id) !== String(property.id));
+      }
+      if (prev.length >= 4) {
+        // Limit to 4 max - replace the oldest or alert
+        return [...prev.slice(1), property.id];
+      }
+      return [...prev, property.id];
+    });
+  };
+
+  const handleAddComparisonProperty = (property: Property) => {
+    setSelectedComparisonIds((prev) => {
+      if (prev.some((id) => String(id) === String(property.id))) return prev;
+      if (prev.length >= 4) return [...prev.slice(1), property.id];
+      return [...prev, property.id];
+    });
+  };
+
+  const handleRemoveComparisonProperty = (propertyId: string | number) => {
+    setSelectedComparisonIds((prev) =>
+      prev.filter((id) => String(id) !== String(propertyId))
+    );
+  };
+
+  const handleReplaceComparisonProperty = (
+    oldPropertyId: string | number,
+    newProperty: Property
+  ) => {
+    setSelectedComparisonIds((prev) =>
+      prev.map((id) => (String(id) === String(oldPropertyId) ? newProperty.id : id))
+    );
+  };
+
+  const handleClearComparison = () => {
+    setSelectedComparisonIds([]);
+  };
+
+  const handleOpenComparisonModal = () => {
+    // If no properties are selected yet, smartly pre-select the top 2 luxury options so the comparison view is rich right away
+    if (selectedComparisonIds.length === 0 && properties.length >= 2) {
+      setSelectedComparisonIds([properties[0].id, properties[1].id]);
+    }
+    setIsComparisonModalOpen(true);
+  };
 
   const handleFilterChange = (newFilters: Partial<FilterState>) => {
     setFilters((prev) => ({ ...prev, ...newFilters }));
@@ -78,6 +139,8 @@ export default function App() {
         onOpenBooking={() => handleOpenBooking()}
         onScrollToSection={handleScrollToSection}
         onOpenSellProperty={() => setIsSellPropertyOpen(true)}
+        onOpenComparisonModal={handleOpenComparisonModal}
+        comparisonCount={selectedComparisonIds.length}
       />
 
       {/* Main Content Area */}
@@ -91,13 +154,16 @@ export default function App() {
           onOpenSellProperty={() => setIsSellPropertyOpen(true)}
         />
 
-        {/* Featured Properties Grid with Interactive Filters */}
+        {/* Featured Properties Grid with Interactive Filters & Comparison */}
         <PropertyGrid
           properties={properties}
           filters={filters}
           onFilterChange={handleFilterChange}
           onBookNow={(prop) => handleOpenBooking(prop)}
           onViewDetails={handleViewDetails}
+          selectedComparisonIds={selectedComparisonIds}
+          onToggleCompare={handleToggleCompare}
+          onOpenComparisonModal={handleOpenComparisonModal}
         />
 
         {/* About AS Realty & Amit Shivpeth */}
@@ -128,6 +194,27 @@ export default function App() {
         onOpenSellProperty={() => setIsSellPropertyOpen(true)}
       />
 
+      {/* Interactive Floating Comparison Tray */}
+      <ComparisonTray
+        selectedProperties={selectedComparisonProperties}
+        onRemoveProperty={handleRemoveComparisonProperty}
+        onClearAll={handleClearComparison}
+        onOpenComparisonModal={handleOpenComparisonModal}
+      />
+
+      {/* Side-by-Side Property Comparison Matrix Modal */}
+      <PropertyComparisonModal
+        isOpen={isComparisonModalOpen}
+        onClose={() => setIsComparisonModalOpen(false)}
+        selectedProperties={selectedComparisonProperties}
+        allProperties={properties}
+        onAddProperty={handleAddComparisonProperty}
+        onRemoveProperty={handleRemoveComparisonProperty}
+        onReplaceProperty={handleReplaceComparisonProperty}
+        onBookNow={(prop) => handleOpenBooking(prop)}
+        onViewDetails={handleViewDetails}
+      />
+
       {/* Interactive Supabase Site Visit Booking Modal */}
       <WhatsAppBookingModal
         isOpen={isBookingOpen}
@@ -147,6 +234,9 @@ export default function App() {
         property={detailProperty}
         onClose={handleCloseDetails}
         onBookNow={(prop) => handleOpenBooking(prop)}
+        isCompared={detailProperty ? selectedComparisonIds.some((id) => String(id) === String(detailProperty.id)) : false}
+        onToggleCompare={handleToggleCompare}
+        onOpenComparisonModal={handleOpenComparisonModal}
       />
 
       {/* Movable Controller for AI Voice Agent */}

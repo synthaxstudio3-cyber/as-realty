@@ -16,6 +16,7 @@ import {
   MessageCircle,
   Share2,
   ExternalLink,
+  ArrowLeftRight,
 } from 'lucide-react';
 import { Property } from '../types';
 
@@ -23,12 +24,18 @@ interface PropertyDetailModalProps {
   property: Property | null;
   onClose: () => void;
   onBookNow: (property: Property) => void;
+  isCompared?: boolean;
+  onToggleCompare?: (property: Property) => void;
+  onOpenComparisonModal?: () => void;
 }
 
 export const PropertyDetailModal: React.FC<PropertyDetailModalProps> = ({
   property,
   onClose,
   onBookNow,
+  isCompared = false,
+  onToggleCompare,
+  onOpenComparisonModal,
 }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [copiedLink, setCopiedLink] = useState(false);
@@ -170,6 +177,22 @@ export const PropertyDetailModal: React.FC<PropertyDetailModalProps> = ({
           </span>
 
           <div className="flex items-center gap-1.5">
+            {onToggleCompare && (
+              <button
+                type="button"
+                onClick={() => onToggleCompare(property)}
+                className={`flex items-center gap-1 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer ${
+                  isCompared
+                    ? 'bg-[#002347] text-[#E6C687] border border-[#C5A059]'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                }`}
+                title={isCompared ? 'Remove from comparison' : 'Add to side-by-side comparison'}
+              >
+                <ArrowLeftRight className="w-3.5 h-3.5 text-[#C5A059]" />
+                <span className="hidden xs:inline">{isCompared ? 'Compared' : 'Compare'}</span>
+              </button>
+            )}
+
             <button
               type="button"
               onClick={handleShare}
@@ -526,6 +549,24 @@ export const PropertyDetailModal: React.FC<PropertyDetailModalProps> = ({
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
+            {onToggleCompare && (
+              <button
+                type="button"
+                onClick={() => {
+                  if (!isCompared) onToggleCompare(property);
+                  if (onOpenComparisonModal) {
+                    onClose();
+                    onOpenComparisonModal();
+                  }
+                }}
+                className="hidden md:flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-slate-300 hover:border-[#C5A059] text-slate-700 hover:text-[#002347] text-xs font-bold transition-colors cursor-pointer"
+                title="Open side-by-side comparison"
+              >
+                <ArrowLeftRight className="w-4 h-4 text-[#C5A059]" />
+                <span>Compare Side-by-Side</span>
+              </button>
+            )}
+
             <button
               type="button"
               onClick={onClose}

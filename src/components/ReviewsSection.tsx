@@ -125,17 +125,17 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ onOpenBooking })
   });
 
   return (
-    <section id="reviews-section" className="py-20 bg-[#001730] text-white relative overflow-hidden border-t border-[#C5A059]/30">
+    <section id="reviews-section" className="py-10 sm:py-16 md:py-20 bg-[#001730] text-white relative overflow-hidden border-t border-[#C5A059]/30">
       {/* Decorative ambient background accents */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C5A059]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-10 w-96 h-96 bg-[#002347]/80 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
         {/* Toast Notification */}
         {toastMessage && (
-          <div className="fixed top-24 right-6 z-50 bg-[#002347] border border-[#C5A059] text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 animate-fade-in">
-            <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
-            <span className="text-sm font-medium">{toastMessage}</span>
+          <div className="fixed top-24 right-6 z-50 bg-[#002347] border border-[#C5A059] text-white px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl shadow-2xl flex items-center gap-3 animate-fade-in text-xs sm:text-sm">
+            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 shrink-0" />
+            <span className="font-medium">{toastMessage}</span>
             <button
               onClick={() => setToastMessage(null)}
               className="ml-2 text-slate-400 hover:text-white"
@@ -146,67 +146,67 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ onOpenBooking })
         )}
 
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 sm:gap-6 mb-6 sm:mb-12">
           <div>
-            <div className="flex items-center gap-2 text-[#E6C687] text-xs font-semibold tracking-widest uppercase mb-2">
-              <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
+            <div className="flex items-center gap-2 text-[#E6C687] text-[10px] sm:text-xs font-semibold tracking-widest uppercase mb-1.5 sm:mb-2">
+              <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C5A059]" />
               <span>Institutional Trust & Testimonials</span>
             </div>
-            <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white">
+            <h2 className="font-cinzel text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white">
               Client Experiences <span className="text-[#C5A059]">& Reviews</span>
             </h2>
-            <p className="mt-3 text-slate-300 text-sm sm:text-base max-w-2xl font-sans">
+            <p className="mt-2 sm:mt-3 text-slate-300 text-xs sm:text-base max-w-2xl font-sans">
               Authentic perspectives from industrial leaders, surgeons, business promoters, and NRIs who completed landmark farmhouse and residence acquisitions with Amit Shivpeth.
             </p>
           </div>
 
           {/* Action: Open Add Review Form */}
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3 self-start lg:self-auto">
             <button
               onClick={() => setShowAddForm((prev) => !prev)}
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#E6C687] hover:from-[#d8b368] hover:to-[#f2d89f] text-[#001730] font-bold text-sm tracking-wide shadow-lg shadow-[#C5A059]/20 transition-all cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#E6C687] hover:from-[#d8b368] hover:to-[#f2d89f] text-[#001730] font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-[#C5A059]/20 transition-all cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
               id="add-review-btn"
             >
-              <PlusCircle className="w-4 h-4 text-[#001730]" />
+              <PlusCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#001730]" />
               <span>{showAddForm ? 'Close Review Form' : 'Add Review'}</span>
             </button>
           </div>
         </div>
 
         {/* Aggregate Credibility Metrics Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-[#002347]/90 border border-[#C5A059]/30 mb-10 shadow-xl backdrop-blur-sm">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-[#002347]/90 border border-[#C5A059]/30 mb-6 sm:mb-10 shadow-xl backdrop-blur-sm">
           <div className="text-center sm:text-left sm:border-r border-white/10 sm:pr-4">
-            <div className="flex items-center justify-center sm:justify-start gap-1.5 text-amber-400 mb-1">
+            <div className="flex items-center justify-center sm:justify-start gap-1 text-amber-400 mb-0.5 sm:mb-1">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
               ))}
             </div>
-            <div className="text-xl sm:text-2xl font-bold font-cinzel text-white">4.98 / 5.0</div>
-            <div className="text-xs text-slate-300 mt-0.5">Average Client Rating</div>
+            <div className="text-lg sm:text-2xl font-bold font-cinzel text-white">4.98 / 5.0</div>
+            <div className="text-[11px] sm:text-xs text-slate-300 mt-0.5">Average Client Rating</div>
           </div>
 
           <div className="text-center sm:text-left sm:border-r border-white/10 sm:px-4">
-            <div className="text-xl sm:text-2xl font-bold font-cinzel text-[#E6C687]">180+</div>
-            <div className="text-xs text-slate-300 mt-0.5">High-Value Transactions</div>
+            <div className="text-lg sm:text-2xl font-bold font-cinzel text-[#E6C687]">180+</div>
+            <div className="text-[11px] sm:text-xs text-slate-300 mt-0.5">High-Value Transactions</div>
             <div className="text-[10px] text-emerald-400 font-medium">Nagpur & Vidarbha</div>
           </div>
 
           <div className="text-center sm:text-left sm:border-r border-white/10 sm:px-4">
-            <div className="text-xl sm:text-2xl font-bold font-cinzel text-[#E6C687]">100%</div>
-            <div className="text-xs text-slate-300 mt-0.5">Clear 30-Year Title Record</div>
+            <div className="text-lg sm:text-2xl font-bold font-cinzel text-[#E6C687]">100%</div>
+            <div className="text-[11px] sm:text-xs text-slate-300 mt-0.5">Clear 30-Year Title Record</div>
             <div className="text-[10px] text-emerald-400 font-medium">Zero Legal Disputes</div>
           </div>
 
           <div className="text-center sm:text-left sm:pl-4">
-            <div className="text-xl sm:text-2xl font-bold font-cinzel text-[#E6C687]">₹250+ Cr</div>
-            <div className="text-xs text-slate-300 mt-0.5">Transacted Value Curated</div>
+            <div className="text-lg sm:text-2xl font-bold font-cinzel text-[#E6C687]">₹250+ Cr</div>
+            <div className="text-[11px] sm:text-xs text-slate-300 mt-0.5">Transacted Value Curated</div>
             <div className="text-[10px] text-slate-300">Confidential Discretion</div>
           </div>
         </div>
 
         {/* Expandable [Add Review] Section Form */}
         {showAddForm && (
-          <div className="mb-12 p-6 sm:p-8 rounded-2xl bg-[#002347] border-2 border-[#C5A059] shadow-2xl relative animate-fadeIn">
+          <div className="mb-6 sm:mb-12 p-4 sm:p-8 rounded-xl sm:rounded-2xl bg-[#002347] border-2 border-[#C5A059] shadow-2xl relative animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-[#001730] border border-[#C5A059] flex items-center justify-center text-[#E6C687]">
@@ -477,7 +477,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ onOpenBooking })
         </div>
 
         {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6">
           {filteredReviews.map((review) => {
             const initials = review.name
               .split(' ')
@@ -490,7 +490,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ onOpenBooking })
             return (
               <div
                 key={review.id}
-                className="rounded-2xl bg-[#002347]/95 border border-[#C5A059]/25 hover:border-[#C5A059]/70 p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-2xl hover:shadow-[#001730]/50 relative group"
+                className="rounded-xl sm:rounded-2xl bg-[#002347]/95 border border-[#C5A059]/25 hover:border-[#C5A059]/70 p-4 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-2xl hover:shadow-[#001730]/50 relative group"
               >
                 {review.isUserAdded && (
                   <div className="absolute top-4 right-4">

@@ -1,17 +1,33 @@
 import React from 'react';
-import { MapPin, BedDouble, Maximize2, ShieldCheck, Eye, MessageCircle, Sparkles, Trees, Compass } from 'lucide-react';
+import {
+  MapPin,
+  BedDouble,
+  Maximize2,
+  ShieldCheck,
+  Eye,
+  MessageCircle,
+  Sparkles,
+  Trees,
+  Compass,
+  ArrowLeftRight,
+  Check,
+} from 'lucide-react';
 import { Property } from '../types';
 
 interface PropertyCardProps {
   property: Property;
   onBookNow: (property: Property) => void;
   onViewDetails: (property: Property) => void;
+  isCompared?: boolean;
+  onToggleCompare?: (property: Property) => void;
 }
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({
   property,
   onBookNow,
   onViewDetails,
+  isCompared = false,
+  onToggleCompare,
 }) => {
   const bhkLower = (property.bhk || '').toLowerCase();
   const typeLower = (property.type || '').toLowerCase();
@@ -38,7 +54,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
       role="button"
       tabIndex={0}
       aria-label={`View details for ${property.name || property.title} in ${property.location}, Nagpur`}
-      className="group relative flex flex-col bg-white border border-slate-200 border-b-4 border-b-[#002347] hover:border-b-[#C5A059] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059]"
+      className={`group relative flex flex-col bg-white border ${
+        isCompared ? 'border-[#C5A059] ring-2 ring-[#C5A059]/40' : 'border-slate-200'
+      } border-b-4 border-b-[#002347] hover:border-b-[#C5A059] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059]`}
     >
       {/* Property Image Container */}
       <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
@@ -70,7 +88,32 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           )}
         </div>
 
-        {/* Quick View Button over image */}
+        {/* Compare Toggle Button over bottom-left of image */}
+        {onToggleCompare && (
+          <button
+            id={`compare-toggle-btn-${property.id}`}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleCompare(property);
+            }}
+            className={`absolute bottom-3 left-3 px-2.5 py-1.5 rounded-lg text-xs backdrop-blur-md border transition-all flex items-center gap-1.5 focus:outline-none cursor-pointer z-10 shadow-md ${
+              isCompared
+                ? 'bg-[#C5A059] text-[#002347] border-[#C5A059] font-bold shadow-[#C5A059]/40'
+                : 'bg-black/60 hover:bg-black/85 text-white border-white/20 hover:border-[#C5A059]'
+            }`}
+            title={isCompared ? 'Remove from comparison' : 'Add to side-by-side comparison'}
+          >
+            {isCompared ? (
+              <Check className="w-3.5 h-3.5 text-[#002347] stroke-[3]" />
+            ) : (
+              <ArrowLeftRight className="w-3.5 h-3.5 text-[#E6C687]" />
+            )}
+            <span>{isCompared ? 'Compared' : 'Compare'}</span>
+          </button>
+        )}
+
+        {/* Quick View Button over bottom-right of image */}
         <button
           type="button"
           onClick={(e) => {
@@ -85,63 +128,63 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
       </div>
 
       {/* Card Body */}
-      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+      <div className="p-3.5 sm:p-5 md:p-6 flex-1 flex flex-col justify-between">
         <div>
           {/* Location & Title */}
-          <div className="flex items-center gap-1.5 text-xs text-[#B8924B] mb-1.5 font-semibold">
+          <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-[#B8924B] mb-1 sm:mb-1.5 font-semibold">
             <MapPin className="w-3.5 h-3.5 shrink-0" />
             <span className="truncate">{property.location}, Nagpur</span>
           </div>
 
           <h3
-            className="text-xl sm:text-2xl font-serif-luxury font-bold text-[#002347] group-hover:text-[#C5A059] transition-colors line-clamp-1"
+            className="text-lg sm:text-xl md:text-2xl font-serif-luxury font-bold text-[#002347] group-hover:text-[#C5A059] transition-colors line-clamp-1"
           >
             {property.name || property.title}
           </h3>
 
-          <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+          <p className="text-[11px] sm:text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
             {property.subtitle || `${property.type} in ${property.location}, Nagpur`}
           </p>
 
           {/* Key Specs Grid */}
-          <div className="grid grid-cols-2 gap-2 my-4 p-3 rounded-xl bg-[#F8F9FA] border border-slate-200/80 text-xs text-slate-700">
-            <div className="flex items-center gap-2">
+          <div className="grid grid-cols-2 gap-1.5 sm:gap-2 my-2.5 sm:my-4 p-2 sm:p-3 rounded-xl bg-[#F8F9FA] border border-slate-200/80 text-[11px] sm:text-xs text-slate-700">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {isFarm ? (
-                <Trees className="w-4 h-4 text-emerald-700 shrink-0" />
+                <Trees className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-700 shrink-0" />
               ) : isPlot ? (
-                <Compass className="w-4 h-4 text-[#B8924B] shrink-0" />
+                <Compass className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#B8924B] shrink-0" />
               ) : (
-                <BedDouble className="w-4 h-4 text-[#002347] shrink-0" />
+                <BedDouble className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#002347] shrink-0" />
               )}
               <span className="truncate font-medium">{property.bhk}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Maximize2 className="w-4 h-4 text-[#002347] shrink-0" />
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#002347] shrink-0" />
               <span className="truncate font-medium">{property.type}</span>
             </div>
           </div>
 
           {/* Highlights tag pills */}
-          <div className="flex flex-wrap gap-1.5 mb-4">
+          <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-3 sm:mb-4">
             {(property.features || ['MahaRERA Registered', 'Prime Connectivity']).slice(0, 2).map((feat, idx) => (
               <span
                 key={idx}
-                className="px-2.5 py-0.5 rounded-md text-[11px] bg-slate-100 text-slate-700 border border-slate-200 font-medium"
+                className="px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] bg-slate-100 text-slate-700 border border-slate-200 font-medium"
               >
                 {feat}
               </span>
             ))}
-            <span className="px-2.5 py-0.5 rounded-md text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">
+            <span className="px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">
               {property.possession || 'Verified Project'}
             </span>
           </div>
         </div>
 
         {/* Price & Action Row */}
-        <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="pt-3 sm:pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
           <div>
-            <span className="text-[10px] uppercase tracking-widest text-slate-500 block">Starting At</span>
-            <span className="text-xl sm:text-2xl font-serif-luxury font-bold text-[#002347]">
+            <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-500 block">Starting At</span>
+            <span className="text-lg sm:text-2xl font-serif-luxury font-bold text-[#002347]">
               {property.price}
             </span>
           </div>
