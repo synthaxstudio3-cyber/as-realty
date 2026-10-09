@@ -19,9 +19,15 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToSection, onOpenBooking
       <div className="border-b border-white/10 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#001730] border border-[#C5A059]/50 flex items-center justify-center font-cinzel text-[#E6C687] font-bold text-sm">
-              AS
-            </div>
+            <img
+              src="/logo.png"
+              onError={(e) => {
+                e.currentTarget.src =
+                  'https://plain-apac-prod-public.komododecks.com/202610/09/9djtGLzdI9Ib3ddoxBO1/image.png';
+              }}
+              alt="AS Realty Logo"
+              className="w-10 h-10 rounded-lg object-contain bg-[#001730] border border-[#C5A059]/60 shadow-sm"
+            />
             <div>
               <span className="font-cinzel text-lg font-bold text-white tracking-wider block">
                 AS REALTY
@@ -125,6 +131,14 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToSection, onOpenBooking
             Leadership & Values
           </h4>
           <ul className="space-y-2">
+            <li>
+              <button
+                onClick={() => onScrollToSection('reviews-section')}
+                className="hover:text-white transition-colors text-left cursor-pointer"
+              >
+                Client Reviews & Testimonials
+              </button>
+            </li>
             <li>
               <button
                 onClick={() => onScrollToSection('founder-section')}

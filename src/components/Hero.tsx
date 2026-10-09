@@ -30,11 +30,25 @@ export const Hero: React.FC<HeroProps> = ({
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Top Prestige Pill */}
+        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#001730]/90 border border-[#C5A059]/50 backdrop-blur-md mb-6 shadow-lg">
+          <Sparkles className="w-3.5 h-3.5 text-[#E6C687]" />
+          <span className="text-xs uppercase tracking-widest text-[#E6C687] font-semibold">
+            Nagpur Premier Real Estate Advisory
+          </span>
+          <span className="w-1 h-1 rounded-full bg-[#C5A059]" />
+          <span className="text-xs text-slate-200 font-medium">Amit Shivpeth</span>
+        </div>
+
         {/* High-Impact Headline */}
         <div className="max-w-3xl">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif-luxury font-bold text-white tracking-tight leading-[1.08]">
             Defining Elite Living in <span className="italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#E6C687] via-[#D4AF37] to-[#C5A059]">Nagpur</span>
           </h1>
+
+          <p className="mt-5 text-base sm:text-lg md:text-xl text-slate-200 font-light leading-relaxed max-w-2xl">
+            Curating Nagpur’s most prestigious architectural marvels, sky penthouses, and bespoke private estates across Civil Lines, Ramdaspeth, and Dharampeth.
+          </p>
         </div>
 
         {/* Primary Action Buttons */}

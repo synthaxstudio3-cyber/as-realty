@@ -6,6 +6,7 @@ import { Hero } from './components/Hero';
 import { PropertyGrid } from './components/PropertyGrid';
 import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
+import { ReviewsSection } from './components/ReviewsSection';
 import { DueDiligenceSection } from './components/DueDiligenceSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
@@ -107,6 +108,9 @@ export default function App() {
           onOpenBooking={() => handleOpenBooking()} 
           onOpenSellProperty={() => setIsSellPropertyOpen(true)}
         />
+
+        {/* Verified Indian Client Reviews & [Add Review] Section */}
+        <ReviewsSection onOpenBooking={() => handleOpenBooking()} />
 
         {/* Institutional-Grade Due Diligence & Investment Advisory */}
         <DueDiligenceSection 

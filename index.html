@@ -8,6 +8,9 @@
     <meta property="og:title" content="AS Realty | Defining Elite Living in Nagpur" />
     <meta property="og:description" content="Discover premier luxury residences, penthouses, sanctioned plots, and farm/field estates in Nagpur curated by AS Realty under the leadership of Amit Shivpeth." />
     <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta property="og:image" content="/logo.png" />
+    <meta name="twitter:image" content="/logo.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +18,12 @@
   </head>
   <body class="bg-[#F8F9FA] text-[#0F172A] antialiased selection:bg-[#C5A059] selection:text-white">
     <div id="root"></div>
-    <elevenlabs-convai agent-id="agent_0301m494a6j6e1zs3ve17ervsap1"></elevenlabs-convai>
+    <div
+      id="convai-draggable-wrapper"
+      style="position: fixed; inset: 0; pointer-events: none; z-index: 99999; touch-action: none;"
+    >
+      <elevenlabs-convai agent-id="agent_0301m494a6j6e1zs3ve17ervsap1"></elevenlabs-convai>
+    </div>
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>

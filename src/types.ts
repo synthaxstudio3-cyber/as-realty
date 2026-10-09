@@ -40,3 +40,19 @@ export interface BookingFormData {
   notes?: string;
 }
 
+export interface Review {
+  id: string;
+  name: string;
+  role: string;
+  location: string;
+  propertyPurchased: string;
+  category: 'farmhouse' | 'residence' | 'plot' | 'all';
+  rating: number;
+  date: string;
+  title: string;
+  comment: string;
+  verifiedBuyer: boolean;
+  helpfulCount: number;
+  isUserAdded?: boolean;
+}
+

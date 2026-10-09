@@ -26,6 +26,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navLinks = [
     { name: 'Featured Residences', id: 'featured-properties-section' },
     { name: 'Due Diligence', id: 'due-diligence-section' },
+    { name: 'Reviews', id: 'reviews-section' },
     { name: 'About AS Realty', id: 'about-us-section' },
     { name: 'Founder Profile', id: 'founder-section' },
     { name: 'Private Services', id: 'services-section' },
@@ -52,11 +53,17 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="flex items-center gap-3 cursor-pointer group select-none"
         >
-          {/* Custom Gold Monogram Crest */}
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-[#001730] border border-[#C5A059]/70 flex items-center justify-center shadow-md group-hover:border-[#E6C687] transition-all">
-            <span className="font-cinzel text-lg sm:text-xl font-bold tracking-tighter text-[#E6C687]">
-              AS
-            </span>
+          {/* Logo Image */}
+          <div className="relative">
+            <img
+              src="/logo.png"
+              onError={(e) => {
+                e.currentTarget.src =
+                  'https://plain-apac-prod-public.komododecks.com/202610/09/9djtGLzdI9Ib3ddoxBO1/image.png';
+              }}
+              alt="AS Realty Logo"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-contain bg-[#001730] border border-[#C5A059]/70 shadow-md group-hover:border-[#E6C687] transition-all"
+            />
           </div>
 
           <div>
