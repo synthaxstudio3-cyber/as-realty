@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { Property, FilterState } from './types';
 import { PROPERTIES } from './data/properties';
 import { Navbar } from './components/Navbar';
@@ -147,6 +148,9 @@ export default function App() {
 
       {/* Movable Controller for AI Voice Agent */}
       <MovableVoiceAgent />
+
+      {/* Vercel Web Analytics */}
+      <Analytics />
     </div>
   );
 }
