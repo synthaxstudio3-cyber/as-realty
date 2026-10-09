@@ -1050,6 +1050,220 @@ export const RAW_NAGPUR_PROPERTIES = [
       "Proximity to Kalmeshwar Station & Market"
     ],
   },
+  {
+    id: 32,
+    name: "1 BHK Furnished Luxury Farm House, Hingna",
+    location: "Hingna",
+    bhk: "1 BHK Farm House",
+    type: "Luxury Farm House",
+    price: "₹24.00 L",
+    price_value: 2400000,
+    imageUrl: "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVP9dY9dM1cZq8k19fAeVRkIzbeR4Ru/Photo_h470_w1080/86823209_2_PropertyImage208-54528695613962_470_1080.jpg",
+    sqft: 1450,
+    bathrooms: 1,
+    reraId: "Clear Freehold Title",
+    possession: "Ready to Move",
+    isFeatured: true,
+    gallery: [
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVP9dY9dM1cZq8k19fAeVRkIzbeR4Ru/Photo_h470_w1080/86823209_2_PropertyImage208-54528695613962_470_1080.jpg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVP9dY9dM1cZq8k19fAeVRkIzbeR4Ru/Photo_h470_w1080/86823209_1_PropertyImage239-1783283173745_470_1080.jpg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVP9dY9dM1cZq8k19fAeVRkIzbeR4Ru/Photo_h470_w1080/86823209_3_PropertyImage71-86400645612568_470_1080.jpg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVP9dY9dM1cZq8k19fAeVRkIzbeR4Ru/Photo_h470_w1080/86823209_6_PropertyImage180-27001673661292_470_1080.jpg"
+    ],
+    description: "Scenic 1 BHK fully furnished farmhouse set across 1,450 sq.ft. carpet area in the serene Hingna green corridor of Nagpur (MagicBricks Listing). South-East facing freehold property overlooking lush garden, swimming pool, and main road. Fully equipped with air conditioning, RO water system, high-speed Wi-Fi, private store rooms, and landscaped lawns.",
+    features: [
+      "Prime Hingna Green Belt Corridor, Nagpur",
+      "Carpet Area: 1,450 Sq. Ft. @ ₹1,655/sq.ft.",
+      "Total Price: ₹24.00 Lac (Freehold Resale)",
+      "South-East Facing with Private Garden & Pool Views",
+      "Fully Furnished with Air Conditioning & Modern Interiors",
+      "Ready to Move with Immediate Registry"
+    ],
+    amenities: [
+      "Private Landscaped Garden & Lawn Area",
+      "Swimming Pool Access & Relaxation Deck",
+      "Air Conditioned Living & Bedrooms",
+      "RO Water System & 24x7 Water Connection",
+      "Direct Main Road Connectivity"
+    ],
+  },
+  {
+    id: 33,
+    name: "1 BHK Countryside Farm House, Amravati Road",
+    location: "Amravati Road",
+    bhk: "1 BHK Farm House",
+    type: "Countryside Farm House",
+    price: "₹10.00 L",
+    price_value: 1000000,
+    imageUrl: "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnzVT89I9ds3_jg4PAex7dn_MvyMpH9SE/Photo_h470_w1080/75125693_1_PropertyImage163-60369631304138_470_1080.jpg",
+    sqft: 800,
+    bathrooms: 1,
+    reraId: "Clear Agricultural/Farmhouse Title",
+    possession: "Ready to Move",
+    isFeatured: true,
+    gallery: [
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnzVT89I9ds3_jg4PAex7dn_MvyMpH9SE/Photo_h470_w1080/75125693_1_PropertyImage163-60369631304138_470_1080.jpg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnzVT89I9ds3_jg4PAex7dn_MvyMpH9SE/Photo_h470_w1080/75125693_1_PropertyImage829-4862240807955_470_1080.jpg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnzVO-dQ9dMiehtE1HtLejppOSFAJIK05/Photo_h470_w1080/75125693_5_000136152_470_1080.jpg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnzVO-dQ9dMiehtE1HtLejppOSFAJIK05/Photo_h470_w1080/75125693_6_000136120_470_1080.jpg"
+    ],
+    description: "Charming 1 BHK semi-furnished countryside farmhouse of 800 sq.ft. carpet area situated just off Amravati Road, Nagpur (MagicBricks Listing). Perfectly tailored for peaceful weekend getaways, offering fresh country air, open green plantation views, reliable water supply, and easy highway access.",
+    features: [
+      "High-Demand Amravati Road Corridor, Nagpur",
+      "Carpet Area: 800 Sq. Ft. @ ₹1,250/sq.ft.",
+      "Total Price: ₹10.00 Lac (Resale)",
+      "Semi-Furnished Farm Cottage Ready to Move",
+      "Spacious Open Green Surroundings",
+      "Peaceful Retreat Close to National Highway"
+    ],
+    amenities: [
+      "Gated Farm Perimeter & Boundary",
+      "Fresh Well & Borewell Water Facility",
+      "Electric Connection & Outdoor Lighting",
+      "Fruit Trees & Plantation Zone",
+      "Wide Access Road from Highway"
+    ],
+  },
+  {
+    id: 34,
+    name: "1 BHK Farm Villa in Ambika Farms, Katol Road",
+    location: "Katol Road",
+    bhk: "1 BHK Farm House",
+    type: "Resort Farm Villa",
+    price: "₹13.50 L",
+    price_value: 1350000,
+    imageUrl: "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnzVK98w9dcmRqnUOMnHZWDWwv2-JLKm9/Photo_h300_w450/70914667_1_IMG6723_300_450.jpeg",
+    sqft: 5000,
+    bathrooms: 1,
+    reraId: "Ambika Farms Sanctioned",
+    possession: "Ready to Move",
+    isFeatured: true,
+    gallery: [
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnzVK98w9dcmRqnUOMnHZWDWwv2-JLKm9/Photo_h300_w450/70914667_1_IMG6723_300_450.jpeg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAmDVG88A9dMxHhZ6mU3s31pUL6DAXz3NT/Photo_h300_w450/dc1d978-0502-4d65-a2b2-b903f0d4d810_65152141_300_450.jpg"
+    ],
+    description: "Prestigious 5,000 sq.ft. farm villa in the landmark Ambika Farms community along Katol Road, Nagpur (MagicBricks Listing). East-facing orientation in a resort-style gated layout featuring lush lawns, water bodies, resort amenities, and 24x7 security. Excellent rental yields and private leisure living.",
+    features: [
+      "World-Class Ambika Farms Township, Katol Road",
+      "Super Area: 5,000 Sq. Ft. Farm Villa Plot",
+      "Total Price: ₹13.50 Lac (Clear Freehold Resale)",
+      "East Facing Vastu-Aligned Layout",
+      "Access to Ambika Farms Resort & Clubhouse",
+      "Immediate Possession & Documentation"
+    ],
+    amenities: [
+      "Resort Clubhouse, Pool & Dining Pavilion",
+      "24x7 Gated Security & Perimeter Wall",
+      "Paved Internal Concrete Roads",
+      "Dedicated Water Supply & Electric Infrastructure",
+      "Landscaped Gardens & Scenic Water Features"
+    ],
+  },
+  {
+    id: 35,
+    name: "2 BHK Nature Farm Estate, Butibori",
+    location: "Butibori",
+    bhk: "2 BHK Farm House",
+    type: "Estate Farm House",
+    price: "₹45.00 L",
+    price_value: 4500000,
+    imageUrl: "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAmTVK4849dcNhIHGSzxHrohg_VGegSizB/Photo_h300_w450/62178305_1_PropertyImage819-5619361793579_300_450.jpg",
+    sqft: 11000,
+    bathrooms: 2,
+    reraId: "Sanctioned Farmhouse Layout",
+    possession: "Ready to Move",
+    isFeatured: true,
+    gallery: [
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAmTVK4849dcNhIHGSzxHrohg_VGegSizB/Photo_h300_w450/62178305_1_PropertyImage819-5619361793579_300_450.jpg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVT89I9dcrZk5V4rFkvFy3FLXn8E2N2/Photo_h300_w450/86215185_3_PropertyImage979-5181593310283_300_450.jpg"
+    ],
+    description: "Expansive 11,000 sq.ft. carpet area 2 BHK farm estate situated in the tranquil Butibori nature belt of Nagpur (MagicBricks Listing). Boasts expansive lawns, private orchards, 2 bathrooms, open outdoor veranda, and views overlooking lush green gardens and water canals.",
+    features: [
+      "Rapidly Developing Butibori Corridor, Nagpur",
+      "Massive 11,000 Sq. Ft. Private Farm Area",
+      "Total Price: ₹45.00 Lac (Resale)",
+      "Ready to Move with 2 Spacious Bedrooms & Veranda",
+      "Ideal for Agro-Tourism, Organic Farming or Retreat",
+      "Direct Motorway Access & Clear Title"
+    ],
+    amenities: [
+      "Extensive Fruit Orchards & Organic Soil Beds",
+      "24x7 Deep Borewell & Canal Water Access",
+      "Private Secured Boundary Fencing",
+      "Outdoor Barbecue & Sit-out Gazebo",
+      "Three-Phase Agricultural/Domestic Power Grid"
+    ],
+  },
+  {
+    id: 36,
+    name: "2 BHK Designer Farm Villa, Kachimet",
+    location: "Kachimet",
+    bhk: "2 BHK Farm House",
+    type: "Luxury Farm Villa",
+    price: "₹28.50 L",
+    price_value: 2850000,
+    imageUrl: "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVB48U9dcNWFIuOSEE0hZ4jgx9C3gTa/Photo_h300_w450/86081665_1_PropertyImage134-3369978209653_300_450.jpg",
+    sqft: 1077,
+    bathrooms: 2,
+    reraId: "Freehold Approved",
+    possession: "Ready to Move",
+    isFeatured: true,
+    gallery: [
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVB48U9dcNWFIuOSEE0hZ4jgx9C3gTa/Photo_h300_w450/86081665_1_PropertyImage134-3369978209653_300_450.jpg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVB48U9dsPu609yi3ZJ0pHCIfi9SiVR/Photo_h300_w450/1d77ddda-45cf-4f4d-a90a-a63dbf330c44_86202125_300_450.jpg"
+    ],
+    description: "Fully equipped 2 BHK luxury farm villa in prime Kachimet, Nagpur (MagicBricks Listing). Super built-up area of 1,077 sq.ft. with premium furnishings, manicured landscaped lawns, swimming pool view, and serene country environment only minutes from the city center.",
+    features: [
+      "Exclusive Kachimet Enclave, Nagpur",
+      "Super Area: 1,077 Sq. Ft.",
+      "Total Price: ₹28.50 Lac",
+      "Fully Furnished 2 BHK with Designer Veranda",
+      "Overlooking Private Pool & Landscaped Garden",
+      "Freehold Ownership with Instant Registration"
+    ],
+    amenities: [
+      "Swimming Pool & Sun Deck",
+      "Covered Parking & Wide Gated Driveway",
+      "Smart Home Features & Air Conditioning",
+      "24x7 Water Supply & Backup Power",
+      "Landscaped Turf & Pergola Seating"
+    ],
+  },
+  {
+    id: 37,
+    name: "1 BHK Orchard Farm House, Strawberry Farm",
+    location: "Hudkeshwar Road",
+    bhk: "1 BHK Farm House",
+    type: "Orchard Farm House",
+    price: "₹24.00 L",
+    price_value: 2400000,
+    imageUrl: "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVG88A9dch1QJghpEWo9Mbd-2oblaEO/Photo_h300_w450/83368075_5_PropertyImage335-3415333815558_300_450.jpg",
+    sqft: 2500,
+    bathrooms: 1,
+    reraId: "Sanctioned Layout",
+    possession: "Ready to Move",
+    isFeatured: true,
+    gallery: [
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVG88A9dch1QJghpEWo9Mbd-2oblaEO/Photo_h300_w450/83368075_5_PropertyImage335-3415333815558_300_450.jpg",
+      "https://img.staticmb.com/mbphoto/property/cropped_images/ver2/XIwvQlc61t8ZIpanz4mAnTVN99A9dsjnoSJjxVKt3g235I9BgtIg/Photo_h300_w450/83869949_1_PropertyImage835-1063082156776_300_450.jpg"
+    ],
+    description: "Delightful 1 BHK farmhouse situated in the serene Strawberry Farm project along Hudkeshwar Road, Nagpur (MagicBricks Listing). Known for clean air, strawberry and fruit cultivation, private perimeter wall, and peaceful weekend ambience.",
+    features: [
+      "Strawberry Farm Community, Hudkeshwar Road",
+      "Super Area: 2,500 Sq. Ft.",
+      "Total Price: ₹24.00 Lac (Resale)",
+      "East Facing with Beautiful Orchard Outlook",
+      "Organic Gardening & Fruit Trees Cultivated",
+      "Immediate Registry & Freehold Possession"
+    ],
+    amenities: [
+      "Organic Farm Plots & Fruit Trees",
+      "Dedicated Borewell Water & Overhead Tanks",
+      "Solar Street Lighting & Grid Electricity",
+      "Community Security & Gated Entrance",
+      "Wide Bituminous Approach Road"
+    ],
+  },
 ];
 
 export const PROPERTIES: Property[] = RAW_NAGPUR_PROPERTIES.map((item: any) => {

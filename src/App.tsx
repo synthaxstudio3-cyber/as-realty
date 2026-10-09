@@ -11,8 +11,8 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { WhatsAppBookingModal } from './components/WhatsAppBookingModal';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
-import { AuthModal } from './components/AuthModal';
 import { SellPropertyModal } from './components/SellPropertyModal';
+import { MovableVoiceAgent } from './components/MovableVoiceAgent';
 
 export default function App() {
   const [properties] = useState<Property[]>(PROPERTIES);
@@ -26,15 +26,8 @@ export default function App() {
   // Modal states
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isSellPropertyOpen, setIsSellPropertyOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authModalMode, setAuthModalMode] = useState<'signin' | 'signup'>('signin');
   const [selectedBookingPropertyName, setSelectedBookingPropertyName] = useState<string>('');
   const [detailProperty, setDetailProperty] = useState<Property | null>(null);
-
-  const handleOpenAuth = (mode?: 'signin' | 'signup') => {
-    setAuthModalMode(mode || 'signin');
-    setIsAuthModalOpen(true);
-  };
 
   const handleFilterChange = (newFilters: Partial<FilterState>) => {
     setFilters((prev) => ({ ...prev, ...newFilters }));
@@ -83,7 +76,6 @@ export default function App() {
       <Navbar
         onOpenBooking={() => handleOpenBooking()}
         onScrollToSection={handleScrollToSection}
-        onOpenAuth={handleOpenAuth}
         onOpenSellProperty={() => setIsSellPropertyOpen(true)}
       />
 
@@ -119,7 +111,6 @@ export default function App() {
         {/* Institutional-Grade Due Diligence & Investment Advisory */}
         <DueDiligenceSection 
           onOpenBooking={() => handleOpenBooking()} 
-          onOpenAuth={handleOpenAuth}
         />
 
         {/* Contact Us & Direct Inquiry Section */}
@@ -133,7 +124,7 @@ export default function App() {
         onOpenSellProperty={() => setIsSellPropertyOpen(true)}
       />
 
-      {/* Interactive WhatsApp Booking Modal Component */}
+      {/* Interactive Supabase Site Visit Booking Modal */}
       <WhatsAppBookingModal
         isOpen={isBookingOpen}
         onClose={handleCloseBooking}
@@ -154,12 +145,8 @@ export default function App() {
         onBookNow={(prop) => handleOpenBooking(prop)}
       />
 
-      {/* Supabase Authentication Modal (Login / Sign Up / VIP Guest) */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        initialMode={authModalMode}
-      />
+      {/* Movable Controller for AI Voice Agent */}
+      <MovableVoiceAgent />
     </div>
   );
 }

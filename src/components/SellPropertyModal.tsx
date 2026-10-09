@@ -15,7 +15,6 @@ import {
 } from 'lucide-react';
 import { COMPANY_DETAILS } from '../data/properties';
 import { logLeadToSupabase } from '../lib/supabase';
-import { useAuth } from '../contexts/AuthContext';
 
 interface SellPropertyModalProps {
   isOpen: boolean;
@@ -26,9 +25,7 @@ export const SellPropertyModal: React.FC<SellPropertyModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const { user } = useAuth();
-
-  const [ownerName, setOwnerName] = useState(user?.fullName || '');
+  const [ownerName, setOwnerName] = useState('');
   const [phone, setPhone] = useState('');
   const [propertyType, setPropertyType] = useState('Luxury Apartment / Penthouse');
   const [location, setLocation] = useState('Civil Lines');
@@ -72,10 +69,10 @@ export const SellPropertyModal: React.FC<SellPropertyModalProps> = ({
     setIsSubmitting(true);
 
     const listingPayload = {
-      user_id: user?.id || null,
+      user_id: null,
       name: ownerName.trim(),
       phone: phone.trim(),
-      email: user?.email || '',
+      email: '',
       property_name: `Seller Listing: ${propertyType} in ${location}`,
       message: `Property Type: ${propertyType} | Location: ${location} | Size: ${sizeAndBhk || 'Not specified'} | Asking Price: ${expectedPrice || 'Open to Valuation'} | Details: ${notes || 'None'}`,
       source: 'Sell Your Property Portal',

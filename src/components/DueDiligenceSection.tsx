@@ -19,7 +19,6 @@ import { COMPANY_DETAILS } from '../data/properties';
 
 interface DueDiligenceSectionProps {
   onOpenBooking: (propertyName?: string) => void;
-  onOpenAuth?: (mode?: 'signin' | 'signup') => void;
 }
 
 export const DueDiligenceSection: React.FC<DueDiligenceSectionProps> = ({

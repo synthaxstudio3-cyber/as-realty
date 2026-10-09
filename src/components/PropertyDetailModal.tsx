@@ -507,8 +507,8 @@ export const PropertyDetailModal: React.FC<PropertyDetailModalProps> = ({
                 }}
                 className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#E6C687] text-[#002347] font-bold text-xs uppercase tracking-wider shrink-0 hover:from-[#B8924B] hover:to-[#D9B97A] transition-all shadow-md cursor-pointer flex items-center justify-center gap-1.5"
               >
-                <MessageCircle className="w-4 h-4 fill-[#002347]" />
-                <span>Message on WhatsApp</span>
+                <Calendar className="w-4 h-4 text-[#002347]" />
+                <span>Schedule VIP Visit</span>
               </button>
             </div>
           </div>

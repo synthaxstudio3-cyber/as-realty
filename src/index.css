@@ -60,3 +60,16 @@
   background: #C5A059;
 }
 
+/* Movable ElevenLabs ConvAI Voice Agent styling */
+elevenlabs-convai:nth-of-type(1) {
+  touch-action: none;
+  cursor: grab;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+elevenlabs-convai:nth-of-type(1).is-dragging {
+  cursor: grabbing !important;
+}
+
