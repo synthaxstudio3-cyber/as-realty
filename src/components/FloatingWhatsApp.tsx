@@ -40,7 +40,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
       {isMenuOpen && (
         <div
           id="floating-whatsapp-popover"
-          className="absolute bottom-16 left-0 w-72 rounded-2xl bg-gradient-to-b from-[#001730] to-[#002347] border border-[#C5A059]/40 shadow-2xl p-4 text-white mb-2 animate-in fade-in slide-in-from-bottom-3 duration-200"
+          className="absolute bottom-16 left-0 w-72 rounded-2xl bg-gradient-to-b from-[#001730] to-[#002347] border border-[#C5A059]/40 shadow-2xl p-4 text-white mb-2 animate-fade-in-up duration-300 ease-out will-change-transform"
         >
           <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#C5A059]/20">
             <div className="flex items-center gap-2">

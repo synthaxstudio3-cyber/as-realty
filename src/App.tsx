@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Property, FilterState } from './types';
 import { PROPERTIES } from './data/properties';
 import { Navbar } from './components/Navbar';
@@ -31,6 +31,33 @@ export default function App() {
   const [isSellPropertyOpen, setIsSellPropertyOpen] = useState(false);
   const [selectedBookingPropertyName, setSelectedBookingPropertyName] = useState<string>('');
   const [detailProperty, setDetailProperty] = useState<Property | null>(null);
+
+  // Deep-link support for ?property=id or #property=id or #id
+  useEffect(() => {
+    const handleUrlProperty = () => {
+      const searchParams = new URLSearchParams(window.location.search);
+      const queryId = searchParams.get('property');
+      const hashId = window.location.hash.replace(/^#property[=-]?/, '').replace(/^#/, '');
+      const targetId = queryId || hashId;
+
+      if (targetId) {
+        const found = properties.find(
+          (p) => String(p.id).toLowerCase() === String(targetId).toLowerCase()
+        );
+        if (found) {
+          setDetailProperty(found);
+        }
+      }
+    };
+
+    handleUrlProperty();
+    window.addEventListener('popstate', handleUrlProperty);
+    window.addEventListener('hashchange', handleUrlProperty);
+    return () => {
+      window.removeEventListener('popstate', handleUrlProperty);
+      window.removeEventListener('hashchange', handleUrlProperty);
+    };
+  }, [properties]);
 
   // Property Side-by-Side Comparison state
   const [selectedComparisonIds, setSelectedComparisonIds] = useState<(string | number)[]>([]);
@@ -126,10 +153,24 @@ export default function App() {
 
   const handleViewDetails = (property: Property) => {
     setDetailProperty(property);
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('property', String(property.id));
+      window.history.pushState({}, '', url.toString());
+    } catch {
+      // ignore
+    }
   };
 
   const handleCloseDetails = () => {
     setDetailProperty(null);
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('property');
+      window.history.pushState({}, '', url.pathname + (url.search ? url.search : ''));
+    } catch {
+      // ignore
+    }
   };
 
   return (
