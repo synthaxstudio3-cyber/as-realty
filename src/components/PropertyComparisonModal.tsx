@@ -23,6 +23,7 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import { Property } from '../types';
+import { COMPANY_DETAILS } from '../data/properties';
 
 interface PropertyComparisonModalProps {
   isOpen: boolean;
@@ -119,7 +120,7 @@ export const PropertyComparisonModal: React.FC<PropertyComparisonModalProps> = (
     const text = encodeURIComponent(
       `Hello Amit Shivpeth (AS Realty),\n\nI am comparing the following Nagpur properties on your website:\n• ${propertyNames}\n\nCould you share your expert recommendation and arrange a private site visit? Thank you!`
     );
-    window.open(`https://wa.me/918788375434?text=${text}`, '_blank');
+    window.open(`https://wa.me/${COMPANY_DETAILS.whatsappNumber}?text=${text}`, '_blank');
     setShowShareNotification(true);
     setTimeout(() => setShowShareNotification(false), 3000);
   };

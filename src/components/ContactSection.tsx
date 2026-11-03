@@ -215,7 +215,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenBooking })
                   className="w-full flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  <span>Send WhatsApp Inquiry (+91 87883 75434)</span>
+                  <span>Send WhatsApp Inquiry ({COMPANY_DETAILS.phoneDisplay})</span>
                 </button>
               </div>
 

@@ -14,7 +14,6 @@ import {
   Layers,
 } from 'lucide-react';
 import { COMPANY_DETAILS } from '../data/properties';
-import { logLeadToSupabase } from '../lib/supabase';
 
 interface SellPropertyModalProps {
   isOpen: boolean;
@@ -62,29 +61,16 @@ export const SellPropertyModal: React.FC<SellPropertyModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!ownerName.trim() || !phone.trim()) return;
 
-    setIsSubmitting(true);
-
-    const listingPayload = {
-      user_id: null,
-      name: ownerName.trim(),
-      phone: phone.trim(),
-      email: '',
-      property_name: `Seller Listing: ${propertyType} in ${location}`,
-      message: `Property Type: ${propertyType} | Location: ${location} | Size: ${sizeAndBhk || 'Not specified'} | Asking Price: ${expectedPrice || 'Open to Valuation'} | Details: ${notes || 'None'}`,
-      source: 'Sell Your Property Portal',
-    };
-
     try {
-      await logLeadToSupabase(listingPayload);
+      window.open(formattedWhatsAppUrl, '_blank');
     } catch (err) {
-      console.error('Error logging seller submission:', err);
+      console.error('Error opening WhatsApp:', err);
     }
 
-    setIsSubmitting(false);
     setIsSuccess(true);
   };
 
@@ -316,25 +302,14 @@ export const SellPropertyModal: React.FC<SellPropertyModalProps> = ({
               </div>
 
               {/* Actions */}
-              <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+              <div className="pt-2">
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full sm:flex-1 py-3.5 rounded-xl bg-gradient-to-r from-[#002347] to-[#001730] hover:from-[#001730] hover:to-[#002347] text-[#E6C687] font-bold text-xs uppercase tracking-wider shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 hover:from-emerald-500 hover:to-emerald-700 text-white font-bold text-xs uppercase tracking-wider shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2"
                 >
-                  <Send className="w-4 h-4 text-[#E6C687]" />
-                  <span>{isSubmitting ? 'Submitting...' : 'Submit Listing Mandate'}</span>
+                  <MessageSquare className="w-4 h-4 text-emerald-200" />
+                  <span>Send Mandate to WhatsApp ({COMPANY_DETAILS.phoneDisplay})</span>
                 </button>
-
-                <a
-                  href={formattedWhatsAppUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  <span>WhatsApp Directly</span>
-                </a>
               </div>
             </form>
           )}

@@ -134,7 +134,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2.5 pl-4 pr-3.5 py-3 rounded-full bg-gradient-to-r from-[#001730] via-[#002347] to-[#001730] text-[#E6C687] shadow-2xl border border-[#E6C687]/70 hover:border-[#E6C687] hover:scale-105 active:scale-95 transition-all cursor-pointer"
-            title="Chat with Amit Shivpeth on WhatsApp (+91 87883 75434)"
+            title={`Chat with Amit Shivpeth on WhatsApp (${COMPANY_DETAILS.phoneDisplay})`}
             aria-label="Chat on WhatsApp"
           >
             {/* Green WhatsApp / Live Status Indicator */}

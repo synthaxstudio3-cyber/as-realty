@@ -142,10 +142,6 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             {property.name || property.title}
           </h3>
 
-          <p className="text-[11px] sm:text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
-            {property.subtitle || `${property.type} in ${property.location}, Nagpur`}
-          </p>
-
           {/* Key Specs Grid */}
           <div className="grid grid-cols-2 gap-1.5 sm:gap-2 my-2.5 sm:my-4 p-2 sm:p-3 rounded-xl bg-[#F8F9FA] border border-slate-200/80 text-[11px] sm:text-xs text-slate-700">
             <div className="flex items-center gap-1.5 sm:gap-2">
@@ -160,7 +156,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             </div>
             <div className="flex items-center gap-1.5 sm:gap-2">
               <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#002347] shrink-0" />
-              <span className="truncate font-medium">{property.type}</span>
+              <span className="truncate font-medium">
+                {property.sqft ? `${property.sqft.toLocaleString('en-IN')} sq.ft.` : property.type}
+              </span>
             </div>
           </div>
 

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { Property, FilterState } from '../types';
+import { COMPANY_DETAILS } from '../data/properties';
 import { PropertyCard } from './PropertyCard';
 import {
   SlidersHorizontal,
@@ -398,7 +399,7 @@ export const PropertyGrid: React.FC<PropertyGridProps> = ({
               Looking for tailored property recommendations in Nagpur?
             </h3>
             <p className="text-sm text-slate-200 max-w-xl">
-              Connect directly with Amit Shivpeth at AS Realty (+91 87883 75434) for private consultations, builder-direct pricing, and site visit arrangements.
+              Connect directly with Amit Shivpeth at AS Realty ({COMPANY_DETAILS.phoneDisplay}) for private consultations, builder-direct pricing, and site visit arrangements.
             </p>
           </div>
 

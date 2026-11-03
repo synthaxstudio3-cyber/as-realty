@@ -13,7 +13,6 @@ import { Footer } from './components/Footer';
 import { WhatsAppBookingModal } from './components/WhatsAppBookingModal';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
 import { SellPropertyModal } from './components/SellPropertyModal';
-import { MovableVoiceAgent } from './components/MovableVoiceAgent';
 import { ComparisonTray } from './components/ComparisonTray';
 import { PropertyComparisonModal } from './components/PropertyComparisonModal';
 
@@ -256,7 +255,7 @@ export default function App() {
         onViewDetails={handleViewDetails}
       />
 
-      {/* Interactive Supabase Site Visit Booking Modal */}
+      {/* Interactive WhatsApp Site Visit Booking Modal */}
       <WhatsAppBookingModal
         isOpen={isBookingOpen}
         onClose={handleCloseBooking}
@@ -279,9 +278,6 @@ export default function App() {
         onToggleCompare={handleToggleCompare}
         onOpenComparisonModal={handleOpenComparisonModal}
       />
-
-      {/* Movable Controller for AI Voice Agent */}
-      <MovableVoiceAgent />
     </div>
   );
 }

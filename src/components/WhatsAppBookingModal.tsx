@@ -8,16 +8,13 @@ import {
   Phone, 
   Mail, 
   CheckCircle2, 
-  Database, 
-  FileText, 
+  MessageSquare, 
   MapPin, 
   ArrowRight,
-  ShieldCheck,
-  Compass
+  ShieldCheck
 } from 'lucide-react';
 import { Property } from '../types';
 import { COMPANY_DETAILS } from '../data/properties';
-import { createBookingInSupabase, BookingResult } from '../lib/supabase';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -38,13 +35,12 @@ export const WhatsAppBookingModal: React.FC<BookingModalProps> = ({
   const [propertyName, setPropertyName] = useState(selectedPropertyName || '');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('11:00 AM');
-  const [visitType, setVisitType] = useState('In-Person Site Inspection');
-  const [notes, setNotes] = useState('');
   const [customTime, setCustomTime] = useState('');
   const [useCustomTime, setUseCustomTime] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [bookingResult, setBookingResult] = useState<BookingResult | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [lastWhatsAppUrl, setLastWhatsAppUrl] = useState('');
 
   // Set default date to tomorrow in YYYY-MM-DD
   useEffect(() => {
@@ -69,7 +65,7 @@ export const WhatsAppBookingModal: React.FC<BookingModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       setIsSubmitting(false);
-      setBookingResult(null);
+      setIsSubmitted(false);
 
       const originalOverflow = document.body.style.overflow;
       const originalPaddingRight = document.body.style.paddingRight;
@@ -114,40 +110,33 @@ export const WhatsAppBookingModal: React.FC<BookingModalProps> = ({
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName.trim() || !phone.trim()) return;
 
-    setIsSubmitting(true);
+    const message = `Hello Amit Shivpeth, I would like to schedule a VIP site visit consultation with AS Realty.\n\n` +
+      `👤 *Client Name:* ${fullName.trim()}\n` +
+      `📱 *Phone Number:* ${phone.trim()}\n` +
+      (email.trim() ? `📧 *Email:* ${email.trim()}\n` : '') +
+      `🏢 *Property:* ${propertyName || 'Luxury Portfolio Consultation'}\n` +
+      `📅 *Date:* ${formatDisplayDate(selectedDate)}\n` +
+      `⏰ *Time Slot:* ${finalTime}\n\n` +
+      `Please confirm the site visit details and advisor availability.`;
+
+    const waUrl = `https://wa.me/${COMPANY_DETAILS.whatsappNumber}?text=${encodeURIComponent(message)}`;
+    setLastWhatsAppUrl(waUrl);
 
     try {
-      const result = await createBookingInSupabase({
-        name: fullName.trim(),
-        phone: phone.trim(),
-        email: email.trim() || undefined,
-        property_name: propertyName || 'Nagpur Luxury Portfolio Consultation',
-        booking_date: selectedDate,
-        booking_time: finalTime,
-        visit_type: visitType,
-        notes: notes.trim() || undefined,
-      });
-
-      setBookingResult(result);
+      window.open(waUrl, '_blank');
     } catch (err) {
-      console.error('Booking submission error:', err);
-      // Fallback result with simulated reference
-      setBookingResult({
-        success: true,
-        bookingRef: `ASR-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`,
-      });
-    } finally {
-      setIsSubmitting(false);
+      console.error('Error opening WhatsApp:', err);
     }
+
+    setIsSubmitted(true);
   };
 
   const handleBookAnother = () => {
-    setBookingResult(null);
-    setNotes('');
+    setIsSubmitted(false);
   };
 
   const timeSlots = [
@@ -155,12 +144,6 @@ export const WhatsAppBookingModal: React.FC<BookingModalProps> = ({
     '01:00 PM (Afternoon Slot)',
     '04:00 PM (Tea & Sunset Slot)',
     '06:00 PM (Evening Twilight)',
-  ];
-
-  const visitTypes = [
-    'In-Person Site Inspection',
-    'Video Walkthrough Consultation',
-    'Office Meeting (Somalwada)',
   ];
 
   return (
@@ -182,13 +165,13 @@ export const WhatsAppBookingModal: React.FC<BookingModalProps> = ({
         <div className="p-6 sm:p-7 pb-4 bg-[#001730] text-white flex items-start justify-between border-b border-[#C5A059]/30">
           <div>
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#C5A059]/20 text-[#E6C687] border border-[#C5A059]/40 uppercase tracking-widest">
-                <Database className="w-3 h-3 text-[#E6C687]" />
-                Supabase Online Booking
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase tracking-widest">
+                <MessageSquare className="w-3 h-3 text-emerald-300" />
+                Direct WhatsApp Booking
               </span>
               <span className="text-[11px] text-emerald-400 font-medium flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Live Database System
+                Instant Concierge
               </span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-white tracking-wide">
@@ -211,7 +194,7 @@ export const WhatsAppBookingModal: React.FC<BookingModalProps> = ({
 
         {/* Modal Content */}
         <div className="p-6 sm:p-7 pt-5 max-h-[75vh] overflow-y-auto">
-          {!bookingResult ? (
+          {!isSubmitted ? (
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Client Full Name & Phone Number */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -307,51 +290,24 @@ export const WhatsAppBookingModal: React.FC<BookingModalProps> = ({
                 </div>
               </div>
 
-              {/* Date & Visit Type Selection */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[#002347] mb-1.5">
-                    5. Preferred Date <span className="text-amber-600">*</span>
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                      <Calendar className="w-4 h-4" />
-                    </div>
-                    <input
-                      id="booking-selected-date"
-                      type="date"
-                      required
-                      min={new Date().toISOString().split('T')[0]}
-                      value={selectedDate}
-                      onChange={(e) => setSelectedDate(e.target.value)}
-                      className="w-full pl-10 pr-3 py-2.5 bg-[#F8F9FA] border border-slate-300 rounded-xl text-slate-800 text-xs sm:text-sm focus:outline-none focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059] transition-colors"
-                    />
+              {/* Preferred Date */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#002347] mb-1.5">
+                  5. Preferred Date <span className="text-amber-600">*</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <Calendar className="w-4 h-4" />
                   </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[#002347] mb-1.5">
-                    6. Visit Format
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                      <Compass className="w-4 h-4" />
-                    </div>
-                    <select
-                      value={visitType}
-                      onChange={(e) => setVisitType(e.target.value)}
-                      className="w-full pl-10 pr-10 py-2.5 bg-[#F8F9FA] border border-slate-300 rounded-xl text-slate-800 text-xs sm:text-sm focus:outline-none focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059] transition-colors appearance-none cursor-pointer"
-                    >
-                      {visitTypes.map((type) => (
-                        <option key={type} value={type} className="bg-white text-slate-800">
-                          {type}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
-                      <span className="text-xs">▼</span>
-                    </div>
-                  </div>
+                  <input
+                    id="booking-selected-date"
+                    type="date"
+                    required
+                    min={new Date().toISOString().split('T')[0]}
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    className="w-full pl-10 pr-3 py-2.5 bg-[#F8F9FA] border border-slate-300 rounded-xl text-slate-800 text-xs sm:text-sm focus:outline-none focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059] transition-colors"
+                  />
                 </div>
               </div>
 
@@ -359,7 +315,7 @@ export const WhatsAppBookingModal: React.FC<BookingModalProps> = ({
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <label className="block text-xs font-bold uppercase tracking-wider text-[#002347]">
-                    7. Preferred Time Slot <span className="text-amber-600">*</span>
+                    6. Preferred Time Slot <span className="text-amber-600">*</span>
                   </label>
                   <button
                     type="button"
@@ -407,54 +363,26 @@ export const WhatsAppBookingModal: React.FC<BookingModalProps> = ({
                 )}
               </div>
 
-              {/* Optional Notes */}
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#002347] mb-1.5">
-                  8. Special Requests or Questions <span className="text-slate-400 text-[10px] font-normal lowercase">(optional)</span>
-                </label>
-                <div className="relative">
-                  <div className="absolute top-2.5 left-3.5 pointer-events-none text-slate-400">
-                    <FileText className="w-4 h-4" />
-                  </div>
-                  <textarea
-                    rows={2}
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    placeholder="e.g. Need vehicle pick-up from Airport / Manish Nagar, or specific layout blueprints."
-                    className="w-full pl-10 pr-3 py-2 bg-[#F8F9FA] border border-slate-300 rounded-xl text-slate-800 text-xs sm:text-sm focus:outline-none focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059]"
-                  />
-                </div>
-              </div>
-
-              {/* Direct Supabase Submit Button */}
+              {/* Direct WhatsApp Submit Button */}
               <div className="pt-2">
                 <button
-                  id="submit-supabase-booking-btn"
+                  id="submit-whatsapp-booking-btn"
                   type="submit"
-                  disabled={isSubmitting || !fullName.trim() || !phone.trim()}
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#002347] via-[#001730] to-[#002347] hover:from-[#003366] hover:to-[#002347] text-[#E6C687] font-bold text-xs uppercase tracking-wider border border-[#C5A059]/60 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer group"
+                  disabled={!fullName.trim() || !phone.trim()}
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 hover:from-emerald-500 hover:to-emerald-700 text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer group"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-[#E6C687] border-t-transparent rounded-full animate-spin" />
-                      <span>Recording Booking to Supabase...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Database className="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform" />
-                      <span>Confirm &amp; Send Booking to Supabase</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#E6C687] ml-1" />
-                    </>
-                  )}
+                  <MessageSquare className="w-4 h-4 text-emerald-200 group-hover:scale-110 transition-transform" />
+                  <span>Confirm &amp; Send Booking via WhatsApp ({COMPANY_DETAILS.phoneDisplay})</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white ml-1" />
                 </button>
                 <p className="text-[11px] text-center text-slate-500 mt-2 flex items-center justify-center gap-1.5">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Direct database record • No WhatsApp launch needed • Instant confirmation</span>
+                  <span>Direct WhatsApp dispatch to {COMPANY_DETAILS.phoneDisplay} • Instant confirmation</span>
                 </p>
               </div>
             </form>
           ) : (
-            /* Confirmation Screen with Supabase Record Badge */
+            /* Confirmation Screen with Direct WhatsApp Button */
             <div className="py-4 text-center space-y-5 animate-in fade-in zoom-in-95 duration-200">
               <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 border-2 border-emerald-400 flex items-center justify-center mx-auto shadow-md">
                 <CheckCircle2 className="w-9 h-9" />
@@ -462,25 +390,25 @@ export const WhatsAppBookingModal: React.FC<BookingModalProps> = ({
 
               <div>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300 mb-2">
-                  <Database className="w-3.5 h-3.5 text-emerald-700" />
-                  Recorded in Supabase Database
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-700" />
+                  Direct WhatsApp Mandate
                 </span>
                 <h4 className="text-2xl font-serif-luxury font-bold text-[#002347]">
-                  Site Visit Successfully Scheduled!
+                  Site Visit Request Prepared!
                 </h4>
                 <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-md mx-auto">
-                  Thank you, <strong className="text-[#002347]">{fullName}</strong>. Your visit has been saved directly to our database and our concierge desk has been alerted.
+                  Thank you, <strong className="text-[#002347]">{fullName}</strong>. Your consultation details have been forwarded directly to Amit Shivpeth ({COMPANY_DETAILS.phoneDisplay}).
                 </p>
               </div>
 
-              {/* Booking Reference Box */}
+              {/* Booking Summary Box */}
               <div className="bg-[#F8F9FA] border border-slate-200 rounded-xl p-4 text-left space-y-2.5 max-w-md mx-auto text-xs">
                 <div className="flex items-center justify-between pb-2 border-b border-slate-200">
                   <span className="font-semibold text-slate-500 uppercase tracking-wider text-[10px]">
-                    Booking Reference
+                    Recipient Desk
                   </span>
-                  <span className="font-mono font-bold text-[#002347] bg-[#E6C687]/30 px-2 py-0.5 rounded text-[11px]">
-                    {bookingResult.bookingRef}
+                  <span className="font-mono font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded text-[11px]">
+                    WhatsApp: {COMPANY_DETAILS.phoneDisplay}
                   </span>
                 </div>
 
@@ -499,12 +427,7 @@ export const WhatsAppBookingModal: React.FC<BookingModalProps> = ({
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Format:</span>
-                  <span className="font-medium text-slate-700">{visitType}</span>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Contact:</span>
+                  <span className="text-slate-500">Your Contact:</span>
                   <span className="font-medium text-slate-800">{phone}</span>
                 </div>
               </div>
@@ -512,12 +435,23 @@ export const WhatsAppBookingModal: React.FC<BookingModalProps> = ({
               <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-xs max-w-md mx-auto text-left flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
                 <p>
-                  Senior consultant <strong className="font-semibold text-[#002347]">{COMPANY_DETAILS.founder}</strong> will connect with you via phone ({phone}) prior to the visit to confirm the meeting point.
+                  Senior consultant <strong className="font-semibold text-[#002347]">{COMPANY_DETAILS.founder}</strong> will connect with you via WhatsApp &amp; phone ({phone}) to coordinate the visit.
                 </p>
               </div>
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                {lastWhatsAppUrl && (
+                  <a
+                    href={lastWhatsAppUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-md cursor-pointer"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    <span>Open in WhatsApp</span>
+                  </a>
+                )}
                 <button
                   type="button"
                   onClick={handleBookAnother}
